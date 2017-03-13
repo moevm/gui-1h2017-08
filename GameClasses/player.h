@@ -19,6 +19,8 @@ public:
     void moveTo(QVector2D toPoint);
     void stop();
 
+    QVector2D getDirection() const;
+    void setDirection(const QVector2D &value);
 };
 
 #endif // PLAYER_H

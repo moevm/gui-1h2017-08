@@ -33,7 +33,8 @@ SOURCES += main.cpp\
     GameClasses/player.cpp \
     GameClasses/level.cpp \
     GameClasses/map.cpp \
-    GameClasses/collision.cpp
+    GameClasses/collision.cpp \
+    GameClasses/drawclass.cpp
 
 HEADERS  += mainwindow.h \
     gamewidget.h \
@@ -44,7 +45,8 @@ HEADERS  += mainwindow.h \
     GameClasses/player.h \
     GameClasses/level.h \
     GameClasses/map.h \
-    GameClasses/collision.h
+    GameClasses/collision.h \
+    GameClasses/drawclass.h
 
 FORMS    += mainwindow.ui
 

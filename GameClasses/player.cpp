@@ -1,6 +1,16 @@
 #include "player.h"
 
 
+QVector2D Player::getDirection() const
+{
+    return direction;
+}
+
+void Player::setDirection(const QVector2D &value)
+{
+    direction = value;
+}
+
 Player::Player(QVector2D position, float r):
     RoundCollision(position,r)
 {

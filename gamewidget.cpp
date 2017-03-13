@@ -5,7 +5,7 @@ GameWidget::GameWidget(QWidget *parent) :
     QWidget(parent),m_lastRect(0,0,0,0)
 {
     this->player = new Player(QVector2D(30,30),30);
-    this->level = new Level();
+    this->level = new Level(this->player);
     startTimer(50);
 }
 
@@ -38,6 +38,7 @@ void GameWidget::paintEvent(QPaintEvent *event)
 
      level->draw(this);
      player->draw(this);
+     this->level->checkCollision(this);  // потом вернуть
 
 
 }
@@ -80,6 +81,7 @@ void GameWidget::action()
 {
 
     player->action();
+   // this->level->checkCollision(this);
 }
 
 

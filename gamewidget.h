@@ -42,6 +42,9 @@ public:
     void mouseReleaseEvent(QMouseEvent *ev);
 
     void action();
+
+    void drawLine(QVector2D p1, QVector2D p2 ); // для визуализации
+    void drawPoint(QVector2D p); // для визуализации
 signals:
 
     void mousePressed();

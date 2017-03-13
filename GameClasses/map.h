@@ -7,8 +7,10 @@ class Wall;
 
 class Map
 {
-    QVector <Wall> walls;
+
+
 public:
+    QVector <Wall> walls;
     Map();
     void addWall(Wall w);
     void draw(GameWidget *obg);
