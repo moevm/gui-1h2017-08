@@ -8,7 +8,17 @@ QVector2D Player::getDirection() const
 
 void Player::setDirection(const QVector2D &value)
 {
-    direction = value;
+    direction = value.normalized()* speed;
+}
+
+QVector2D Player::getForce() const
+{
+    return force;
+}
+
+void Player::setForce(const QVector2D &value)
+{
+    force = value.normalized()* speed;
 }
 
 Player::Player(QVector2D position, float r):
@@ -16,9 +26,6 @@ Player::Player(QVector2D position, float r):
 {
     this->direction = QVector2D(0,0);
 }
-
-
-
 void Player::draw(GameWidget *obg)
 {
     QPainter pain(obg);
@@ -28,19 +35,19 @@ void Player::draw(GameWidget *obg)
     //pain.setPen(pen);
     pain.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap));
     pain.setBrush(QBrush(Qt::green, Qt::SolidPattern));
-    pain.drawEllipse(QRectF(this->position.x(), this->position.y(), this->R,  this->R));
+    pain.drawEllipse(QRectF(this->position.x(), this->position.y(), this->R*2,  this->R*2));
     // pain.drawRect(QRectF(this->x, this->y, this->width,  this->height));
 }
 
 void Player::action()
 {
-    this->position = this->position + this->direction;
+    this->position = this->position + this->direction+this->force;
 }
 
 void Player::moveTo(QVector2D toPoint)
 {
     //this->position = toPoint;
-    this->direction = (toPoint - this->position).normalized()* speed;
+    this->direction = (toPoint - (this->position) ).normalized()* speed;
 }
 
 void Player::stop()

@@ -6,9 +6,9 @@
 Level::Level(Player *pl)
 {
     curr_map = new Map();
-    //curr_map->addWall(Wall(QVector2D(240,140), 10,405));
-    //curr_map->addWall(Wall(QVector2D(60,120), 20,400));
-    curr_map->addWall(Wall(QVector2D(90,60), 250,20));
+    curr_map->addWall(Wall(QVector2D(240,140), 10,405));
+    curr_map->addWall(Wall(QVector2D(60,120), 20,400));
+    curr_map->addWall(Wall(QVector2D(90,60), 250,50));
     this->pl=pl;
 }
 
@@ -19,7 +19,14 @@ void Level::draw(GameWidget *obg)
 
 void Level::checkCollision(QWidget *paint)
 {
+    QVector2D save = QVector2D(0,0);
     foreach (Wall curr_wall, curr_map->walls) {
-        this->pl->setDirection(collisionCircleAndRectangle(&curr_wall, this->pl, paint));
+        save +=collisionCircleAndRectangle(&curr_wall, this->pl, paint);
+        //this->pl->setForce(collisionCircleAndRectangle(&curr_wall, this->pl, paint));
+       /* if((collisionCircleAndRectangle(&curr_wall, this->pl, paint))!=QVector2D(0,0))
+        {
+            this->pl->stop();
+        }*/
     }
+    this->pl->setForce(save);
 }

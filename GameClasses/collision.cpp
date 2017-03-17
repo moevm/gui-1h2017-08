@@ -6,10 +6,138 @@ QVector2D collisionCircleAndRectangle(RectangleCollision *rect, RoundCollision *
 {
     //QVector2D centRect(rect->getPosition().x() + rect->getWidth()/2, rect->getPosition().y() + rect->getHeight()/2);
     //QVector2D centCircle(circle->getPosition().x() + circle->getR(), circle->getPosition().y() + circle->getR());
+   // collisionCircleAndRectangleToX(rect, circle, paint);
+
+    if(//(circleOutsideRectX(rect, circle, paint) && circleOutsideRectY(rect, circle, paint)) ||
+        (circleInRectX(rect, circle, paint) && circleInRectY(rect, circle, paint)) ||
+            ((!circleInRectX(rect, circle, paint) && !circleOutsideRectX(rect, circle, paint)) &&
+            (!circleInRectY(rect, circle, paint) && !circleOutsideRectY(rect, circle, paint))))
+    {
+         return checkAreaFromTheCorner(rect, circle, paint);
+    }
+    else
+    {
+        if(circleInRectX(rect, circle, paint) && !circleOutsideRectY(rect, circle, paint))
+        {
+            if(rectUp(rect, circle, paint) /*rect->getPosition().y() > circle->getPosition().y()*/) // значит круг снизу прямоугольника
+            {
+                if(paint!=nullptr)
+                {
+                    DrawClass::drawLine(circle->getCentr(), circle->getCentr() +QVector2D(0, -10), paint);
+                }
+                return (QVector2D(0, -1));
+            }else
+            {
+                if(paint!=nullptr)
+                {
+                    DrawClass::drawLine(circle->getCentr(), circle->getCentr() +QVector2D(0, 10), paint);
+                }
+                return (QVector2D(0, +1));
+            }
+        }
+        if(circleInRectY(rect, circle, paint) && !circleOutsideRectX(rect, circle, paint))
+        {
+            if(rectRight(rect, circle, paint)/*rect->getPosition().x() > circle->getPosition().x()*/) // значит круг снизу прямоугольника
+            {
+                if(paint!=nullptr)
+                {
+                    DrawClass::drawLine(circle->getCentr(), circle->getCentr() +QVector2D(-10, 0), paint);
+                }
+                return (QVector2D(-1, 0));
+            }else
+            {
+                if(paint!=nullptr)
+                {
+                    DrawClass::drawLine(circle->getCentr(), circle->getCentr() +QVector2D(10,0), paint);
+                }
+                return (QVector2D(+1, 0));
+            }
+        }
+    }
+     return (QVector2D(0, 0));
+//     if(collisionOnX(rect, circle, paint))
+//     {
+
+//         if(rectUp(rect, circle, paint))
+//         {
+//             if(paint!=nullptr)
+//             {
+//                 DrawClass::drawLine(circle->getCentr(), circle->getCentr() +QVector2D(0, -1), paint);
+//             }
+//             return (QVector2D(0, -1));
+//         }
+//         else
+//         {
+//             if(paint!=nullptr)
+//             {
+//                 DrawClass::drawLine(circle->getCentr(), circle->getCentr() +QVector2D(0, 1), paint);
+//             }
+//             return (QVector2D(0, 1));
+//         }
+//     }
+//     if(collisionOnY(rect, circle, paint))
+//     {
+//         if(rectRight(rect, circle, paint))
+//                return (QVector2D(0, -1));
+//         else   return (QVector2D(0, 1));
+//     }
+
+//    QVector2D centrRect = rect->getCentr();
+//    QVector2D centrCircle = circle->getCentr();
+//    DrawClass::drawLine(centrRect, centrCircle, paint);
+
+
+
+
+//    float k, b;
+//    getLine(centrRect, centrCircle, k, b);
+//    if( (rect->getPosition().distanceToPoint(centrCircle) < (rect->getPosition() + QVector2D(rect->getWidth(),rect->getHeight())).distanceToPoint(centrCircle) &&
+//         rect->getPosition().distanceToPoint(centrCircle) < (rect->getPosition() + QVector2D(0,rect->getHeight())).distanceToPoint(centrCircle) &&
+//         rect->getPosition().distanceToPoint(centrCircle) < (rect->getPosition() + QVector2D(rect->getWidth(),0)).distanceToPoint(centrCircle)) ||
+//        ((rect->getPosition() + QVector2D(rect->getWidth(),rect->getHeight())).distanceToPoint(centrCircle) < (rect->getPosition()).distanceToPoint(centrCircle) &&
+//         (rect->getPosition() + QVector2D(rect->getWidth(),rect->getHeight())).distanceToPoint(centrCircle) < (rect->getPosition() + QVector2D(0,rect->getHeight())).distanceToPoint(centrCircle) &&
+//         (rect->getPosition() + QVector2D(rect->getWidth(),rect->getHeight())).distanceToPoint(centrCircle) < (rect->getPosition() + QVector2D(rect->getWidth(),0)).distanceToPoint(centrCircle)))
+//    {
+//        QVector2D proection1 = pointProjectionOnLine(rect->getPosition(), k, b );
+//        QVector2D proection2 = pointProjectionOnLine((rect->getPosition() + QVector2D(rect->getWidth(),rect->getHeight())), k, b );
+//        DrawClass::drawLine(proection1, proection2, paint);
+//        DrawClass::drawPoint(proection1, paint);
+//        DrawClass::drawPoint(proection2, paint);
+//        if(isCollisionLineWithLine( proection1,
+//                                    proection2,
+//                                    centrCircle+(centrCircle - centrRect).normalized()*circle->getR(),
+//                                    centrCircle+(centrRect - centrCircle).normalized()*circle->getR()))
+//        {
+//            return (centrCircle -centrRect).normalized(); // возвращаем вектор, который направлен в противоположную сторону от столкновения(но вообще нужно отражать на угол, наверное). Или мы просто гасим движение? Нужно, наверное, ещё подумать над механийкой столкновения.
+//        }
+//        // Вот вопрос, а следующий if вообще нужен? Наверное нет.
+//    } else /*if(  (rect->getPosition() + QVector2D(0,rect->height)).distanceToPoint(centrCircle) < (rect->getPosition() + QVector2D(rect->width,rect->height)).distanceToPoint(centrCircle) &&
+//                (rect->getPosition() + QVector2D(0,rect->height)).distanceToPoint(centrCircle) < (rect->getPosition()).distanceToPoint(centrCircle) &&
+//                (rect->getPosition() + QVector2D(0,rect->height)).distanceToPoint(centrCircle) < (rect->getPosition() + QVector2D(rect->width,0)).distanceToPoint(centrCircle) ||
+//                ((rect->getPosition() + QVector2D(rect->width,0)).distanceToPoint(centrCircle) < (rect->getPosition() + QVector2D(rect->width,rect->height)).distanceToPoint(centrCircle) &&
+//                (rect->getPosition() + QVector2D(rect->width,0)).distanceToPoint(centrCircle) < (rect->getPosition() + QVector2D(0,rect->height)).distanceToPoint(centrCircle) &&
+//                (rect->getPosition() + QVector2D(rect->width,0)).distanceToPoint(centrCircle) < (rect->getPosition()).distanceToPoint(centrCircle)))*/
+//    {
+//        QVector2D proection1 = pointProjectionOnLine((rect->getPosition() + QVector2D(0,rect->getHeight())), k, b );
+//        QVector2D proection2 = pointProjectionOnLine((rect->getPosition() + QVector2D(rect->getWidth(), 0)), k, b );
+//        DrawClass::drawLine(proection1, proection2, paint);
+//        DrawClass::drawPoint(proection1, paint);
+//        DrawClass::drawPoint(proection2, paint);
+//        if(isCollisionLineWithLine( proection1,
+//                                    proection2,
+//                                    centrCircle+(centrCircle - centrRect).normalized()*circle->getR(),
+//                                    centrCircle+(centrRect - centrCircle).normalized()*circle->getR()))
+//        {
+//            return (centrCircle -centrRect).normalized(); // возвращаем вектор, который направлен в противоположную сторону от столкновения(но вообще нужно отражать на угол, наверное)
+//        }
+//    }
+//    return QVector2D(0,0);  // ну столкновения нет, значит и сила упругости нулевая.
+}
+QVector2D checkAreaFromTheCorner(RectangleCollision *rect, RoundCollision *circle, QWidget * paint)
+{
     QVector2D centrRect = rect->getCentr();
     QVector2D centrCircle = circle->getCentr();
     DrawClass::drawLine(centrRect, centrCircle, paint);
-
     float k, b;
     getLine(centrRect, centrCircle, k, b);
     if( (rect->getPosition().distanceToPoint(centrCircle) < (rect->getPosition() + QVector2D(rect->getWidth(),rect->getHeight())).distanceToPoint(centrCircle) &&
@@ -26,8 +154,8 @@ QVector2D collisionCircleAndRectangle(RectangleCollision *rect, RoundCollision *
         DrawClass::drawPoint(proection2, paint);
         if(isCollisionLineWithLine( proection1,
                                     proection2,
-                                    centrCircle+(centrCircle - centrRect).normalized()*circle->getR()/2,
-                                    centrCircle+(centrRect - centrCircle).normalized()*circle->getR()/2))
+                                    centrCircle+(centrCircle - centrRect).normalized()*circle->getR(),
+                                    centrCircle+(centrRect - centrCircle).normalized()*circle->getR()))
         {
             return (centrCircle -centrRect).normalized(); // возвращаем вектор, который направлен в противоположную сторону от столкновения(но вообще нужно отражать на угол, наверное). Или мы просто гасим движение? Нужно, наверное, ещё подумать над механийкой столкновения.
         }
@@ -46,13 +174,128 @@ QVector2D collisionCircleAndRectangle(RectangleCollision *rect, RoundCollision *
         DrawClass::drawPoint(proection2, paint);
         if(isCollisionLineWithLine( proection1,
                                     proection2,
-                                    centrCircle+(centrCircle - centrRect).normalized()*circle->getR()/2,
-                                    centrCircle+(centrRect - centrCircle).normalized()*circle->getR()/2))
+                                    centrCircle+(centrCircle - centrRect).normalized()*circle->getR(),
+                                    centrCircle+(centrRect - centrCircle).normalized()*circle->getR()))
         {
             return (centrCircle -centrRect).normalized(); // возвращаем вектор, который направлен в противоположную сторону от столкновения(но вообще нужно отражать на угол, наверное)
         }
     }
     return QVector2D(0,0);  // ну столкновения нет, значит и сила упругости нулевая.
+}
+bool collisionOnX(RectangleCollision *rect, RoundCollision *circle, QWidget * paint)
+{
+    DrawClass::drawPoint(QVector2D(circle->getPosition().x(), rect->getPosition().y()), paint);
+    DrawClass::drawPoint(QVector2D(circle->getPosition().x() + circle->getR()*2, rect->getPosition().y()), paint);
+    DrawClass::drawPoint(QVector2D(rect->getPosition().x(), circle->getPosition().y()), paint);
+    DrawClass::drawPoint(QVector2D(rect->getPosition().x(), circle->getPosition().y() + circle->getR()*2), paint);
+    if( inLine(rect->getPosition().x(),rect->getPosition().x() + rect->getWidth(), circle->getPosition().x()) &&
+        inLine(rect->getPosition().x(),rect->getPosition().x() + rect->getWidth(), circle->getPosition().x() + circle->getR()*2)  )
+    {
+        if( inLine(rect->getPosition().y(),rect->getPosition().y() + rect->getHeight(), circle->getPosition().y()) ^                    // ^ - это xor
+            inLine(rect->getPosition().y(),rect->getPosition().y() + rect->getHeight(), circle->getPosition().y() + circle->getR()*2)  )
+        {
+            return true;
+            /*if(rect->getPosition().y() > circle->getPosition().y()) // значит круг снизу прямоугольника
+            {
+                return (QVector2D(0, -1));
+            }else
+            {
+                return (QVector2D(0, +1));
+            }*/
+        }
+    }
+    return false;
+}
+bool circleInRectX(RectangleCollision *rect, RoundCollision *circle, QWidget * paint)
+{
+    if( inLine(rect->getPosition().x(),rect->getPosition().x() + rect->getWidth(), circle->getPosition().x()) &&
+        inLine(rect->getPosition().x(),rect->getPosition().x() + rect->getWidth(), circle->getPosition().x() + circle->getR()*2)  )
+    {
+         return true;
+
+    }
+    return false;
+}
+bool circleInRectY(RectangleCollision *rect, RoundCollision *circle, QWidget * paint)
+{
+    if( inLine(rect->getPosition().y(),rect->getPosition().y() + rect->getHeight(), circle->getPosition().y()) &&
+        inLine(rect->getPosition().y(),rect->getPosition().y() + rect->getHeight(), circle->getPosition().y() + circle->getR()*2)  )
+    {
+         return true;
+    }
+    return false;
+
+}
+bool circleOutsideRectX(RectangleCollision *rect, RoundCollision *circle, QWidget * paint)
+{
+    if( !inLine(rect->getPosition().x(),rect->getPosition().x() + rect->getWidth(), circle->getPosition().x()) &&
+        !inLine(rect->getPosition().x(),rect->getPosition().x() + rect->getWidth(), circle->getPosition().x() + circle->getR()*2)  )
+    {
+         return true;
+
+    }
+    return false;
+}
+bool circleOutsideRectY(RectangleCollision *rect, RoundCollision *circle, QWidget * paint)
+{
+    if( !inLine(rect->getPosition().y(),rect->getPosition().y() + rect->getHeight(), circle->getPosition().y()) &&
+        !inLine(rect->getPosition().y(),rect->getPosition().y() + rect->getHeight(), circle->getPosition().y() + circle->getR()*2)  )
+    {
+         return true;
+    }
+    return false;
+
+}
+bool rectUp(RectangleCollision *rect, RoundCollision *circle, QWidget * paint)
+{
+    if(rect->getPosition().y() > circle->getPosition().y()) // значит круг снизу прямоугольника
+    {
+        return true;
+    }else
+    {
+        return false;
+    }
+}
+bool collisionOnY(RectangleCollision *rect, RoundCollision *circle, QWidget * paint)
+{
+   /* DrawClass::drawPoint(QVector2D(circle->getPosition().x(), rect->getPosition().y()), paint);
+    DrawClass::drawPoint(QVector2D(circle->getPosition().x() + circle->getR()*2, rect->getPosition().y()), paint);
+    DrawClass::drawPoint(QVector2D(rect->getPosition().x(), circle->getPosition().y()), paint);
+    DrawClass::drawPoint(QVector2D(rect->getPosition().x(), circle->getPosition().y() + circle->getR()*2), paint);*/
+    if( inLine(rect->getPosition().y(),rect->getPosition().y() + rect->getHeight(), circle->getPosition().y()) &&
+        inLine(rect->getPosition().y(),rect->getPosition().y() + rect->getHeight(), circle->getPosition().y() + circle->getR()*2)  )
+    {
+        if( inLine(rect->getPosition().x(),rect->getPosition().x() + rect->getWidth(), circle->getPosition().x()) ^
+            inLine(rect->getPosition().x(),rect->getPosition().x() + rect->getWidth(), circle->getPosition().x() + circle->getR()*2)  )
+        {
+            return true;
+            /*if(rect->getPosition().x() > circle->getPosition().x()) // значит круг снизу прямоугольника
+            {
+                return (QVector2D(-1, 0));
+            }else
+            {
+                return (QVector2D(-1, 0));
+            }*/
+        }
+    }
+    return false;
+
+}
+bool rectRight(RectangleCollision *rect, RoundCollision *circle, QWidget * paint)
+{
+    if(rect->getPosition().x() > circle->getPosition().x()) // значит круг снизу прямоугольника
+    {
+        return true;
+    }else
+    {
+        return false;
+    }
+}
+bool inLine(float line1, float line2, float point)
+{
+    if((line1 < point && line2 > point) || (line1 > point && line2 < point))
+        return true;
+    else return false;
 }
 
 bool getLine(const QVector2D  p1 ,const QVector2D p2, float &k, float &b) //возвращает false, если эта линия имеет вид x=b

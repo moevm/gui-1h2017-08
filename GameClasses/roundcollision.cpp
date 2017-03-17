@@ -14,7 +14,7 @@ void RoundCollision::setR(float value)
 
 QVector2D RoundCollision::getCentr()
 {
-     return QVector2D (this->position.x() + this->getR()/2, this->position.y() + this->getR()/2);
+     return QVector2D (this->position.x() + this->getR(), this->position.y() + this->getR());
 }
 
 RoundCollision::RoundCollision(QVector2D position, float R):

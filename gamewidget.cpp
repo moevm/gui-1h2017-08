@@ -4,7 +4,7 @@
 GameWidget::GameWidget(QWidget *parent) :
     QWidget(parent),m_lastRect(0,0,0,0)
 {
-    this->player = new Player(QVector2D(30,30),30);
+    this->player = new Player(QVector2D(30,30),15);
     this->level = new Level(this->player);
     startTimer(50);
 }
@@ -36,9 +36,11 @@ void GameWidget::paintEvent(QPaintEvent *event)
     one.draw(this);*/
    // Player my_player(this->x,this->y, 30);
 
+
      level->draw(this);
      player->draw(this);
      this->level->checkCollision(this);  // потом вернуть
+
 
 
 }
@@ -63,7 +65,6 @@ void GameWidget::mouseMoveEvent(QMouseEvent *ev)
 
 void GameWidget::mousePressEvent(QMouseEvent *ev)
 {
-
     emit mousePressed();
 }
 
@@ -74,8 +75,9 @@ void GameWidget::leaveEvent(QEvent *ev)
 
 void GameWidget::mouseReleaseEvent(QMouseEvent *ev)
 {
-     player->stop();
+    player->stop();
 }
+
 
 void GameWidget::action()
 {

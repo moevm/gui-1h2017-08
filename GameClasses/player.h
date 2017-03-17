@@ -11,7 +11,9 @@ class GameWidget;
 class Player : public RoundCollision
 {
     QVector2D direction;
+    QVector2D force;
     float speed = 5;
+
 public:
     Player(QVector2D position, float R=0);
     void draw(GameWidget *obg);
@@ -21,6 +23,8 @@ public:
 
     QVector2D getDirection() const;
     void setDirection(const QVector2D &value);
+    QVector2D getForce() const;
+    void setForce(const QVector2D &value);
 };
 
 #endif // PLAYER_H
