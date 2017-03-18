@@ -18,7 +18,9 @@ QVector2D Player::getForce() const
 
 void Player::setForce(const QVector2D &value)
 {
-    force = value.normalized()* speed;
+    if(value!=QVector2D(0,0))
+        this->speed=5;
+    force = value;
 }
 
 Player::Player(QVector2D position, float r):
@@ -29,28 +31,26 @@ Player::Player(QVector2D position, float r):
 void Player::draw(GameWidget *obg)
 {
     QPainter pain(obg);
-
-    //QPen pen;
-   // pen.setColor(Qt::black);
-    //pain.setPen(pen);
     pain.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap));
     pain.setBrush(QBrush(Qt::green, Qt::SolidPattern));
     pain.drawEllipse(QRectF(this->position.x(), this->position.y(), this->R*2,  this->R*2));
-    // pain.drawRect(QRectF(this->x, this->y, this->width,  this->height));
 }
 
 void Player::action()
 {
+    if(this->speed < this->maxSpeed && this->direction!=QVector2D(0,0))
+        this->speed=this->speed+this->speed*0.05;
     this->position = this->position + this->direction+this->force;
 }
 
 void Player::moveTo(QVector2D toPoint)
 {
-    //this->position = toPoint;
+
     this->direction = (toPoint - (this->position) ).normalized()* speed;
 }
 
 void Player::stop()
 {
+    this->speed=5;
     this->direction = QVector2D(0,0);
 }

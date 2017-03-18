@@ -15,31 +15,9 @@ void GameWidget::paintEvent(QPaintEvent *event)
     {
         m_lastRect = event->rect();
     }
-  /*  QPainter pain(this);
-    QPen pen;
-       pen.setStyle(Qt::NoPen);
-       pain.setPen(pen);
-        QImage image(":img/pict.png");
-       // Указываем изображение в качестве паттерна
-       QBrush brush(image);
-
-       // Растягиваем изображение
-      // brush.setTransform(QTransform().rotate(angle));
-       brush.setTransform(QTransform().scale(0.2,0.2));
-       pain.setBrush(brush);
-
-       // Рисуем прямоугольник с закруглёнными краями
-       qreal radius = 10;
-       pain.drawRoundedRect(QRectF(0, 0, image.width(), image.height()), radius, radius);*/
-      // pain.drawRoundedRect(QRectF(0, 0, 100, 100), radius, radius);
-   /* Wall one(QVector2D(10,10), 20, 20);
-    one.draw(this);*/
-   // Player my_player(this->x,this->y, 30);
-
-
      level->draw(this);
      player->draw(this);
-     this->level->checkCollision(this);  // потом вернуть
+    // this->level->checkCollision(this);  // потом вернуть
 
 
 
@@ -47,10 +25,6 @@ void GameWidget::paintEvent(QPaintEvent *event)
 
 void GameWidget::timerEvent(QTimerEvent *event)
 {
-    //m_lastRect.setHeight(m_lastRect.height() -0.01*m_lastRect.height());
-    //m_lastRect.setWidth(m_lastRect.width() -0.01*m_lastRect.width());
-   /* angle++;
-    if(angle == 360) angle =0;*/
     this->action();
     this->repaint();
 }
@@ -83,7 +57,7 @@ void GameWidget::action()
 {
 
     player->action();
-   // this->level->checkCollision(this);
+    this->level->checkCollision(nullptr);
 }
 
 

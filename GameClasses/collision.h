@@ -9,9 +9,7 @@
 
 QVector2D collisionCircleAndRectangle( RectangleCollision * rect, RoundCollision *circle, QWidget * paint);
 
-bool collisionOnX(RectangleCollision *rect, RoundCollision *circle, QWidget * paint);
 bool rectUp(RectangleCollision *rect, RoundCollision *circle, QWidget * paint);
-bool collisionOnY(RectangleCollision *rect, RoundCollision *circle, QWidget * paint);
 bool rectRight(RectangleCollision *rect, RoundCollision *circle, QWidget * paint);
 bool circleOutsideRectX(RectangleCollision *rect, RoundCollision *circle, QWidget * paint);
 bool circleOutsideRectY(RectangleCollision *rect, RoundCollision *circle, QWidget * paint);
@@ -23,7 +21,6 @@ bool getLine(const QVector2D  p1 ,const QVector2D p2, float &k, float &b); //в�
 bool inLine(float line1, float line2, float point);
 
 QVector2D pointProjectionOnLine(QVector2D point, float k, float b);  // проецируем точку point на прямую y=k*x+b
-//bool isCollisionLineWithLine(QVector2D point1,QVector2D point2,QVector2D proj1,QVector2D proj2,QVector2D proj3);
 bool isCollisionLineWithLine(QVector2D point1,QVector2D point2,QVector2D proj1,QVector2D proj2);
 bool pointOnLine (QVector2D p1,QVector2D p2,QVector2D point);
 
