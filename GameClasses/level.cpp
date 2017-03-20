@@ -22,11 +22,6 @@ void Level::checkCollision(QWidget *paint)
     QVector2D save = QVector2D(0,0);
     foreach (Wall curr_wall, curr_map->walls) {
         save +=collisionCircleAndRectangle(&curr_wall, this->pl, paint);
-        //this->pl->setForce(collisionCircleAndRectangle(&curr_wall, this->pl, paint));
-       /* if((collisionCircleAndRectangle(&curr_wall, this->pl, paint))!=QVector2D(0,0))
-        {
-            this->pl->stop();
-        }*/
     }
     this->pl->setForce(save);
 }

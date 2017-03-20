@@ -13,6 +13,7 @@ class Player : public RoundCollision
     QVector2D direction;
     QVector2D force;
     float speed = 5;
+    const float maxSpeed = 10;
 
 public:
     Player(QVector2D position, float R=0);
