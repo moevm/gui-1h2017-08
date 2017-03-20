@@ -13,7 +13,7 @@ class Maze{
     };
 
     struct CellString{
-        Cell* cells;
+        Cell *cells;
         unsigned int size;
     };
 
@@ -26,16 +26,17 @@ class Maze{
 
     vector <Cell> stack;
 
-    short **maze;
+    int **maze;
     int height;
     int width;
 
 public:
     Maze();
     Maze (int width,int height);
-    void generate ();
+    int** getMap();
 
 protected:
+    void generate ();
     void backtrackGeneration();
     CellString getNeighbours(Cell c,int distance);
     void removeWall(Cell first, Cell second);
@@ -43,6 +44,7 @@ protected:
     unsigned int randomRange(unsigned int low, unsigned int high);
     CellString getUnvisitedCells();
     unsigned int unvisitedCount();
+
 };
 
 #endif
