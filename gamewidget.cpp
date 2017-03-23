@@ -4,7 +4,7 @@
 GameWidget::GameWidget(QWidget *parent) :
     QWidget(parent),m_lastRect(0,0,0,0)
 {
-    this->player = new Player(QVector2D(30,30),15);
+    this->player = new Player(QVector2D(30,30),25);
     this->level = new Level(this->player);
     startTimer(50);
 }

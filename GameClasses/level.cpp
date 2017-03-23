@@ -1,15 +1,35 @@
 #include "level.h"
 #include "collision.h"
-
+#include "maze.h"
 
 
 Level::Level(Player *pl)
 {
     curr_map = new Map();
-    curr_map->addWall(Wall(QVector2D(240,140), 10,405));
-    curr_map->addWall(Wall(QVector2D(60,120), 20,400));
-    curr_map->addWall(Wall(QVector2D(90,60), 250,50));
+    int mazeWidth = 25;
+    int mazeHeight = 25;
+    Maze maze (mazeWidth,mazeHeight);
+    int **map = maze.getMap();
     this->pl=pl;
+    bool done = false;
+    for (int i=0; i<mazeWidth; i++){
+        for (int j=0; j<mazeHeight; j++){
+            if(1 == map[i][j])
+            {
+                curr_map->addWall(Wall(QVector2D(70*j,70*i), 70,70));
+            }
+            if(-1 == map[i][j] && !done)
+            {
+
+                this->pl->setPosition(QVector2D(70*j,70*i));
+                done=true;
+            }
+        }
+     }
+
+
+
+
 }
 
 void Level::draw(GameWidget *obg)
