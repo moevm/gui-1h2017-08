@@ -13,7 +13,7 @@ class Level
 public:
     Level(Player * pl);
     void draw(GameWidget *obg);
-    void checkCollision(QWidget *paint);
+    void checkCollision(GameWidget *paint);
 };
 
 #endif // LEVEL_H

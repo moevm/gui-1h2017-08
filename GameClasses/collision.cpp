@@ -2,7 +2,7 @@
 
 #include "drawclass.h"
 
-QVector2D collisionCircleAndRectangle(RectangleCollision *rect, RoundCollision *circle, QWidget * paint)
+QVector2D collisionCircleAndRectangle(RectangleCollision *rect, RoundCollision *circle, GameWidget * paint)
 {
     if(     (circleInRectX(rect, circle, paint) && circleInRectY(rect, circle, paint)) ||
             ((!inLine(rect->getPosition().x(), rect->getPosition().x() + rect->getWidth(), circle->getCentr().x()) && !circleOutsideRectX(rect, circle, paint)) &&
@@ -53,7 +53,7 @@ QVector2D collisionCircleAndRectangle(RectangleCollision *rect, RoundCollision *
     }
      return (QVector2D(0, 0));
 }
-QVector2D checkAreaFromTheCorner(RectangleCollision *rect, RoundCollision *circle, QWidget * paint)
+QVector2D checkAreaFromTheCorner(RectangleCollision *rect, RoundCollision *circle, GameWidget * paint)
 {
     QVector2D centrRect = rect->getCentr();
     QVector2D centrCircle = circle->getCentr();
@@ -110,7 +110,7 @@ QVector2D checkAreaFromTheCorner(RectangleCollision *rect, RoundCollision *circl
     }
     return QVector2D(0,0);  // ну столкновения нет, значит и сила упругости нулевая.
 }
-bool circleInRectX(RectangleCollision *rect, RoundCollision *circle, QWidget * paint)
+bool circleInRectX(RectangleCollision *rect, RoundCollision *circle, GameWidget * paint)
 {
     if( inLine(rect->getPosition().x(),rect->getPosition().x() + rect->getWidth(), circle->getPosition().x()) &&
         inLine(rect->getPosition().x(),rect->getPosition().x() + rect->getWidth(), circle->getPosition().x() + circle->getR()*2)  )
@@ -120,7 +120,7 @@ bool circleInRectX(RectangleCollision *rect, RoundCollision *circle, QWidget * p
     }
     return false;
 }
-bool circleInRectY(RectangleCollision *rect, RoundCollision *circle, QWidget * paint)
+bool circleInRectY(RectangleCollision *rect, RoundCollision *circle, GameWidget * paint)
 {
     if( inLine(rect->getPosition().y(),rect->getPosition().y() + rect->getHeight(), circle->getPosition().y()) &&
         inLine(rect->getPosition().y(),rect->getPosition().y() + rect->getHeight(), circle->getPosition().y() + circle->getR()*2)  )
@@ -130,7 +130,7 @@ bool circleInRectY(RectangleCollision *rect, RoundCollision *circle, QWidget * p
     return false;
 
 }
-bool circleOutsideRectX(RectangleCollision *rect, RoundCollision *circle, QWidget * paint)
+bool circleOutsideRectX(RectangleCollision *rect, RoundCollision *circle, GameWidget * paint)
 {
     if( !inLine(rect->getPosition().x(),rect->getPosition().x() + rect->getWidth(), circle->getPosition().x()) &&
         !inLine(rect->getPosition().x(),rect->getPosition().x() + rect->getWidth(), circle->getPosition().x() + circle->getR()*2)  )
@@ -140,7 +140,7 @@ bool circleOutsideRectX(RectangleCollision *rect, RoundCollision *circle, QWidge
     }
     return false;
 }
-bool circleOutsideRectY(RectangleCollision *rect, RoundCollision *circle, QWidget * paint)
+bool circleOutsideRectY(RectangleCollision *rect, RoundCollision *circle, GameWidget * paint)
 {
     if( !inLine(rect->getPosition().y(),rect->getPosition().y() + rect->getHeight(), circle->getPosition().y()) &&
         !inLine(rect->getPosition().y(),rect->getPosition().y() + rect->getHeight(), circle->getPosition().y() + circle->getR()*2)  )
@@ -150,7 +150,7 @@ bool circleOutsideRectY(RectangleCollision *rect, RoundCollision *circle, QWidge
     return false;
 
 }
-bool rectUp(RectangleCollision *rect, RoundCollision *circle, QWidget * paint)
+bool rectUp(RectangleCollision *rect, RoundCollision *circle, GameWidget * paint)
 {
     if(rect->getPosition().y() > circle->getPosition().y()) // значит круг снизу прямоугольника
     {
@@ -160,7 +160,7 @@ bool rectUp(RectangleCollision *rect, RoundCollision *circle, QWidget * paint)
         return false;
     }
 }
-bool rectRight(RectangleCollision *rect, RoundCollision *circle, QWidget * paint)
+bool rectRight(RectangleCollision *rect, RoundCollision *circle, GameWidget * paint)
 {
     if(rect->getPosition().x() > circle->getPosition().x()) // значит круг снизу прямоугольника
     {

@@ -3,19 +3,20 @@
 
 #include <QVector2D>
 #include <QWidget>
+#include "gamewidget.h"
 #include "rectanglecollision.h"
 #include "roundcollision.h"
 
 
-QVector2D collisionCircleAndRectangle( RectangleCollision * rect, RoundCollision *circle, QWidget * paint);
+QVector2D collisionCircleAndRectangle( RectangleCollision * rect, RoundCollision *circle, GameWidget * paint);
 
-bool rectUp(RectangleCollision *rect, RoundCollision *circle, QWidget * paint);
-bool rectRight(RectangleCollision *rect, RoundCollision *circle, QWidget * paint);
-bool circleOutsideRectX(RectangleCollision *rect, RoundCollision *circle, QWidget * paint);
-bool circleOutsideRectY(RectangleCollision *rect, RoundCollision *circle, QWidget * paint);
-bool circleInRectX(RectangleCollision *rect, RoundCollision *circle, QWidget * paint);
-bool circleInRectY(RectangleCollision *rect, RoundCollision *circle, QWidget * paint);
-QVector2D checkAreaFromTheCorner(RectangleCollision *rect, RoundCollision *circle, QWidget * paint);
+bool rectUp(RectangleCollision *rect, RoundCollision *circle, GameWidget * paint);
+bool rectRight(RectangleCollision *rect, RoundCollision *circle, GameWidget * paint);
+bool circleOutsideRectX(RectangleCollision *rect, RoundCollision *circle, GameWidget * paint);
+bool circleOutsideRectY(RectangleCollision *rect, RoundCollision *circle, GameWidget * paint);
+bool circleInRectX(RectangleCollision *rect, RoundCollision *circle, GameWidget * paint);
+bool circleInRectY(RectangleCollision *rect, RoundCollision *circle, GameWidget * paint);
+QVector2D checkAreaFromTheCorner(RectangleCollision *rect, RoundCollision *circle, GameWidget * paint);
 
 bool getLine(const QVector2D  p1 ,const QVector2D p2, float &k, float &b); //возвращает false, если эта линия имеет вид x=b
 bool inLine(float line1, float line2, float point);

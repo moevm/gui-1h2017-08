@@ -6,8 +6,10 @@
 Level::Level(Player *pl)
 {
     curr_map = new Map();
-    int mazeWidth = 25;
-    int mazeHeight = 25;
+    int mazeWidth = 50;
+    int mazeHeight = 50;
+    int wallWidth = 200;
+    int wallHeight = 200;
     Maze maze (mazeWidth,mazeHeight);
     int **map = maze.getMap();
     this->pl=pl;
@@ -16,20 +18,16 @@ Level::Level(Player *pl)
         for (int j=0; j<mazeHeight; j++){
             if(1 == map[i][j])
             {
-                curr_map->addWall(Wall(QVector2D(70*j,70*i), 70,70));
+                curr_map->addWall(Wall(QVector2D(wallWidth*j,wallHeight*i), wallWidth,wallHeight));
             }
             if(-1 == map[i][j] && !done)
             {
 
-                this->pl->setPosition(QVector2D(70*j,70*i));
+                this->pl->setPosition(QVector2D(wallWidth*j,wallHeight*i));
                 done=true;
             }
         }
      }
-
-
-
-
 }
 
 void Level::draw(GameWidget *obg)
@@ -37,7 +35,7 @@ void Level::draw(GameWidget *obg)
     curr_map->draw(obg);
 }
 
-void Level::checkCollision(QWidget *paint)
+void Level::checkCollision(GameWidget *paint)
 {
     QVector2D save = QVector2D(0,0);
     foreach (Wall curr_wall, curr_map->walls) {

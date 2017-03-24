@@ -18,8 +18,8 @@ QVector2D Player::getForce() const
 
 void Player::setForce(const QVector2D &value)
 {
-    if(value!=QVector2D(0,0))
-        this->speed=5;
+   /* if(value!=QVector2D(0,0))
+        this->speed=5;*/
     force = value;
 }
 
@@ -33,7 +33,7 @@ void Player::draw(GameWidget *obg)
     QPainter pain(obg);
     pain.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap));
     pain.setBrush(QBrush(Qt::green, Qt::SolidPattern));
-    pain.drawEllipse(QRectF(this->position.x(), this->position.y(), this->R*2,  this->R*2));
+    pain.drawEllipse(QRectF(this->position.x() + obg->getTranslation().x(), this->position.y() + obg->getTranslation().y(), this->R*2,  this->R*2));
 }
 
 void Player::action()

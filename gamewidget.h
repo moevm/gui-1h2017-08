@@ -27,11 +27,13 @@ class GameWidget : public QWidget
 
     QRect m_lastRect;
     int angle=0;
-    int x,y;
+    //int x,y;
     Player *player;
     Level *level;
+    QVector2D translation = QVector2D(0,0);
 public:
     explicit GameWidget(QWidget *parent = 0);
+    ~GameWidget();
 
     void paintEvent(QPaintEvent *event);
     void timerEvent(QTimerEvent *event);
@@ -45,6 +47,10 @@ public:
 
     void drawLine(QVector2D p1, QVector2D p2 ); // для визуализации
     void drawPoint(QVector2D p); // для визуализации
+
+    QVector2D getTranslation() const;
+    void setTranslation(const QVector2D &value);
+
 signals:
 
     void mousePressed();
