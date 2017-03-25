@@ -4,17 +4,19 @@
 #include <stdlib.h>
 #include <string.h>
 #include <vector>
+#include <ctime>
+
 using std::vector;
 
 class Maze{
     struct Cell{ //структура, хранящая координаты клетки в матрице
-        unsigned int x;
-        unsigned int y;
+        int x;
+        int y;
     };
 
     struct CellString{
         Cell *cells;
-        unsigned int size;
+        int size;
     };
 
 
@@ -25,14 +27,18 @@ class Maze{
     int unvisitedNum;
 
     vector <Cell> stack;
+    vector <Cell> rooms;
 
     int **maze;
     int height;
     int width;
 
 public:
+
+    enum { CELL, WALL, VISITED };
+
     Maze();
-    Maze (int width,int height);
+    Maze (int width,int height, bool braids=true, bool rooms=true, int roomNum=-1);
     int** getMap();
 
 protected:
@@ -41,9 +47,11 @@ protected:
     CellString getNeighbours(Cell c,int distance);
     void removeWall(Cell first, Cell second);
     void setMode(Cell c, int mode);
-    unsigned int randomRange(unsigned int low, unsigned int high);
+    int randomRange( int low, int high);
     CellString getUnvisitedCells();
-    unsigned int unvisitedCount();
+    int unvisitedCount();
+    void makeBraids();
+    void makeRooms(int num);
 
 };
 

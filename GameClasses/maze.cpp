@@ -1,9 +1,7 @@
 #include "maze.h"
-#define CELL 0
-#define WALL 1
-#define VISITED -1
 
- Maze::Maze(int width, int height){
+
+ Maze::Maze(int width, int height, bool braids, bool rooms, int roomNum){
     this->width = width;
     this->height=height;
     maze = new int *[width];
@@ -24,30 +22,69 @@
                }
            }
 
+           if (rooms){
+               makeRooms(roomNum);
+           }
+
        startPoint={0,0};
        exitPoint={width-1, height-1};
        unvisitedNum=unvisitedCount();
        generate();
+
+       if (braids){
+           makeBraids();
+       }
+
+}
+void Maze::makeBraids(){
+    /*
+    int numB=(height*width)/50;
+    while (numB>0){
+        int x=randomRange(3, width-3);
+        int y=randomRange(3, height-3);
+            if (maze[x][y]==WALL){
+                maze[x][y]=VISITED;
+                numB--;
+            }
+    }
+    */
 }
 
+void Maze::makeRooms(int num){
+     srand(time(0));
+    if (num==0) return;
+    int numOfRooms=num;
+
+    if (num==-1){
+        numOfRooms=(height*width)/2000;
+    }
+
+    while (numOfRooms){
+        int x=randomRange(7, width-8);
+        int y=randomRange(7, height-8);
+        Cell room = {x,y};
+        rooms.push_back(room);
+
+        for (int i = x-2; i<x+2; i++){
+            for (int j=y-2; j<y+2; j++){
+                maze[i][j]=VISITED;
+            }
+        }
+
+       numOfRooms--;
+    }
+
+
+}
+
+
 void  Maze::generate (){
+    srand(time(0));
     do    backtrackGeneration();
     while(unvisitedCount() > 0);
 }
 
 void Maze::backtrackGeneration(){
-/*
-    for(int i = 0; i < height; i++){
-            for(int j = 0; j < width; j++){
-
-                if((i % 2 != 0  && j % 2 != 0) && //если ячейка нечетная по x и y,
-                   (i < height-1 && j < width-1))   //и при этом находится в пределах стен лабиринта
-                       maze[i][j] = CELL;       //то это КЛЕТКА
-                else maze[i][j] = WALL;           //в остальных случаях это СТЕНА.
-            }
-        }
-*/
-
 
     unsigned int randNum;
         CellString cellStringUnvisited;
@@ -58,7 +95,7 @@ void Maze::backtrackGeneration(){
             cellNext = cellStringNeighbours.cells[randNum]; //выбираем случайного соседа
 
             stack.push_back(startPoint); //заносим текущую точку в стек
-            removeWall(startPoint, cellNext); //убираем стену между текущей и сосендней точками
+            removeWall(startPoint, cellNext); //убираем стену между текущей и соседней точками
             unvisitedNum--;
             startPoint = cellNext; //делаем соседнюю точку текущей и отмечаем ее посещенной
             setMode(startPoint,VISITED);
@@ -77,28 +114,26 @@ void Maze::backtrackGeneration(){
                 startPoint = cellStringUnvisited.cells[randNum];
             }
             delete cellStringUnvisited.cells;
-           // free(cellStringUnvisited.cells);
         }
 
 }
 
 Maze::CellString Maze::getNeighbours(Cell c,int distance){
-    unsigned int i;
-    unsigned int x = c.x;
-    unsigned int y = c.y;
+    int x = c.x;
+    int y = c.y;
     Cell up = {x, y - distance};
     Cell rt = {x + distance, y};
     Cell dw = {x, y + distance};
     Cell lt = {x - distance, y};
     Cell d[4]  = {dw, rt, up, lt};
-    unsigned int size = 0;
+    int size = 0;
 
     CellString cells;
     cells.cells = new Cell[4];
 
-    for(i = 0; i < 4; i++){ //для каждого направдения
+    for(int i = 0; i < 4; i++){ //для каждого направдения
         if(d[i].x > 0 && d[i].x < width && d[i].y > 0 && d[i].y < height){ //если не выходит за границы лабиринта
-            unsigned int mazeCellCurrent = maze[d[i].y][d[i].x];
+            unsigned int mazeCellCurrent = maze[d[i].x][d[i].y];
             Cell cellCurrent  = d[i];
             if(mazeCellCurrent != WALL && mazeCellCurrent != VISITED){ //и не посещена\является стеной
                 cells.cells[size] = cellCurrent; //записать в массив;
@@ -123,16 +158,16 @@ void  Maze::removeWall(Cell first, Cell second){
     target.x = first.x + addX; //координаты стенки
     target.y = first.y + addY;
 
-    maze[target.y][target.x] = VISITED;
+    maze[target.x][target.y] = VISITED;
 }
 
 void  Maze::setMode(Cell c, int mode){
-    unsigned int x = c.x;
-    unsigned int y = c.y;
-    maze[y][x] = mode;
+    int x = c.x;
+    int y = c.y;
+    maze[x][y] = mode;
 }
 
-unsigned int  Maze::randomRange(unsigned int low, unsigned int high){
+int  Maze::randomRange(int low, int high){
 
     return rand() % (high - low + 1) + low;
 }
@@ -156,7 +191,7 @@ Maze::CellString  Maze::getUnvisitedCells(){
     return cells;
 }
 
-unsigned int  Maze::unvisitedCount(){
+int  Maze::unvisitedCount(){
     unsigned int count = 0, i, j;
     for (i = 0; i < width; i++)
         for (j = 0; j < height; j++)

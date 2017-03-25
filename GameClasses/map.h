@@ -8,7 +8,6 @@ class Wall;
 class Map
 {
 
-
 public:
     QVector <Wall> walls;
     Map();

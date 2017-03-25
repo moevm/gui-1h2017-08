@@ -6,21 +6,22 @@
 Level::Level(Player *pl)
 {
     curr_map = new Map();
-    int mazeWidth = 50;
-    int mazeHeight = 50;
-    int wallWidth = 200;
-    int wallHeight = 200;
+    int mazeWidth = 41;
+    int mazeHeight = 71;
+    int wallWidth = 10;
+    int wallHeight = 10;
+
     Maze maze (mazeWidth,mazeHeight);
     int **map = maze.getMap();
     this->pl=pl;
     bool done = false;
     for (int i=0; i<mazeWidth; i++){
         for (int j=0; j<mazeHeight; j++){
-            if(1 == map[i][j])
+            if(maze.WALL == map[i][j])
             {
                 curr_map->addWall(Wall(QVector2D(wallWidth*j,wallHeight*i), wallWidth,wallHeight));
             }
-            if(-1 == map[i][j] && !done)
+            if(maze.VISITED == map[i][j] && !done)
             {
 
                 this->pl->setPosition(QVector2D(wallWidth*j,wallHeight*i));
