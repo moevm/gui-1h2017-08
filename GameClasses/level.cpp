@@ -8,8 +8,8 @@ Level::Level(Player *pl)
     curr_map = new Map();
     int mazeWidth = 41;
     int mazeHeight = 71;
-    int wallWidth = 10;
-    int wallHeight = 10;
+    int wallWidth = 100;
+    int wallHeight = 100;
 
     Maze maze (mazeWidth,mazeHeight);
     int **map = maze.getMap();

@@ -1,3 +1,6 @@
 <RCC>
-    <qresource prefix="/img"/>
+    <qresource prefix="/img">
+        <file>img/cell.png</file>
+        <file>img/wall.png</file>
+    </qresource>
 </RCC>
