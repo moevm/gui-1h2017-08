@@ -1,4 +1,5 @@
 #include "gamewidget.h"
+#include "GameClasses/collision.h"
 
 
 QVector2D GameWidget::getTranslation() const
@@ -41,6 +42,14 @@ void GameWidget::paintEvent(QPaintEvent *event)
     #ifndef QT_NO_DEBUG   // если Отладка, то рисуеются линии отвечающие за определение столкновения объектов. (а NDEBUG не объявлен, я думал это стандартная костанта для всех IDE, а вон оно как)
         this->level->checkCollision(this);
     #endif
+    #ifndef QT_NO_DEBUG
+        foreach (Wall curr_wall, this->level->getCurr_map()->walls) {
+            if(collisionPointAndRectangle(&this->mouse_pos,&curr_wall, this))
+            {
+                curr_wall.setPath(":/img/img/cell.png");
+            }
+        }
+    #endif
 }
 
 void GameWidget::timerEvent(QTimerEvent *event)
@@ -54,6 +63,7 @@ void GameWidget::mouseMoveEvent(QMouseEvent *ev)
 {
 //    this->x = ev->x();
    // this->y = ev->y();
+    this->mouse_pos = QVector2D(ev->x()- this->getTranslation().x(), ev->y()- this->getTranslation().y());
     player->moveTo(QVector2D(ev->x()- this->getTranslation().x(), ev->y()- this->getTranslation().y()));
     emit mousePos();
 }
@@ -80,7 +90,8 @@ void GameWidget::action()
     player->action();
     #ifdef QT_NO_DEBUG   // если не Отладка
         this->level->checkCollision(nullptr);
-    #endif*/
+    #endif
+
    // this->level->checkCollision(nullptr);
 }
 

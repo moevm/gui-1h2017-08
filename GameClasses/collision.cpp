@@ -216,3 +216,26 @@ bool pointOnLine (QVector2D p1,QVector2D p2,QVector2D point)
     return(((point.x() <= p1.x() && point.x() >= p2.x())  || (point.x() >= p1.x() && point.x() <= p2.x())) &&
         ((point.y() <= p1.y() && point.y() >= p2.y())  || (point.y() >= p1.y() && point.y() <= p2.y())));
 }
+
+bool collisionPointAndRectangle(QVector2D *p, RectangleCollision *rect, GameWidget * paint)
+{
+    if(paint!=nullptr)
+    {
+        DrawClass::drawPoint(*p,  paint);
+        if((p->distanceToPoint(rect->getCentr()) < 100))
+            DrawClass::drawLine(*p, rect->getCentr(), paint);
+    }
+    if(!((p->x() < rect->getPosition().x() && p->x() > rect->getPosition().x() + rect->getWidth()) ||   // проекция на x
+        (p->x() > rect->getPosition().x() && p->x() < rect->getPosition().x() + rect->getWidth()))   )
+    {
+        return false;
+    }
+    if(!((p->y() < rect->getPosition().y() && p->y() > rect->getPosition().y() + rect->getHeight()) ||// проекция на y
+        (p->y() > rect->getPosition().y() && p->y() < rect->getPosition().y() + rect->getHeight()))   )
+    {
+        return false;
+    }
+
+    return true;
+
+}

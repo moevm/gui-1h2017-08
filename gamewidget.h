@@ -27,6 +27,7 @@ class GameWidget : public QWidget
 
     QRect m_lastRect;
     int angle=0;
+    QVector2D mouse_pos;
     //int x,y;
     Player *player;
     Level *level;
