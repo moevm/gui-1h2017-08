@@ -14,6 +14,8 @@ class Player : public RoundCollision
     QVector2D force;
     float speed = 5;
     const float maxSpeed = 10;
+    float angle;
+    QVector2D look;
 
 public:
     Player(QVector2D position, float R=0);
@@ -26,6 +28,7 @@ public:
     void setDirection(const QVector2D &value);
     QVector2D getForce() const;
     void setForce(const QVector2D &value);
+
 };
 
 #endif // PLAYER_H
