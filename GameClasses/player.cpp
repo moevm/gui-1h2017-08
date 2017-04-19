@@ -39,7 +39,7 @@ void Player::draw(GameWidget *obg)
     pain.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap));
     pain.setBrush(QBrush(Qt::green, Qt::SolidPattern));
 
-    //pain.drawEllipse(QRectF(this->position.x() + obg->getTranslation().x(), this->position.y() + obg->getTranslation().y(), this->R*2,  this->R*2));
+   // pain.drawEllipse(QRectF(this->position.x() + obg->getTranslation().x(), this->position.y() + obg->getTranslation().y(), this->R*2,  this->R*2));
 
 
     float x = this->position.x() + obg->getTranslation().x();
@@ -48,17 +48,19 @@ void Player::draw(GameWidget *obg)
 
 
     QPixmap pic = QPixmap (":/img/img/player.png");
-    QTransform transform;
-    QTransform //trans = transform.scale(sqrt(pic.size().width()), sqrt(pic.size().height()));
-        trans = transform.rotate(angle);
-    pic = QPixmap(pic.transformed(trans));
-    float m=  (float)pic.width()/10.0;
+        QPixmap rotatePixmap(pic.size());
+        rotatePixmap.fill(Qt::transparent);
 
-    pain.drawPixmap(QRect(QPoint(x,y),QSize(d, d)),pic);
-
-    //pain.drawPixmap(QRect(QPoint(x,y),QSize((float)pic.width()/10.0,(float)pic.height()/10.0)),pic);
-    //pain.drawPixmap(QRect(QPoint(x,y),QSize(pic.width()/4,pic.height()/4)),pic);
-
+        QPainter p(&rotatePixmap);
+        pain.setRenderHint(QPainter::Antialiasing); // сглаживание
+        pain.setRenderHint(QPainter::SmoothPixmapTransform);
+        pain.setRenderHint(QPainter::HighQualityAntialiasing);
+        pain.translate(x+this->R , y+this->R );
+        pain.rotate(angle+45); // градус
+         pain.drawPixmap(QRect(QPoint(0-R,0-R),QSize(d, d)),pic);
+        pain.translate(-(x+this->R) , -(y+this->R) );
+        pain.end();
+        pic = rotatePixmap;
 
     #ifndef QT_NO_DEBUG
         pain.drawText(QRect(QPoint(0,0),QSize(100, 100)),
