@@ -51,7 +51,7 @@ void Player::draw(GameWidget *obg)
     pic = QPixmap(pic.transformed(trans));
 
 
-     pain.drawPixmap(QRect(QPoint(x,y),QSize(d, d)),pic);
+     pain.drawPixmap(QRect(QPoint(x,y),QSize(pic.width()/4,pic.height()/4)),pic);
 }
 
 

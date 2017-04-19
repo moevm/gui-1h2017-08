@@ -29,25 +29,9 @@
        startPoint={0,0};
        exitPoint={width-1, height-1};
        unvisitedNum=unvisitedCount();
+       haveBraids = braids;
        generate();
 
-       if (braids){
-           makeBraids();
-       }
-
-}
-void Maze::makeBraids(){
-    /*
-    int numB=(height*width)/50;
-    while (numB>0){
-        int x=randomRange(3, width-3);
-        int y=randomRange(3, height-3);
-            if (maze[x][y]==WALL){
-                maze[x][y]=VISITED;
-                numB--;
-            }
-    }
-    */
 }
 
 void Maze::makeRooms(int num){
@@ -102,12 +86,16 @@ void Maze::backtrackGeneration(){
             delete cellStringNeighbours.cells;
         }
         else if(stack.size()){ //если нет соседей, возвращаемся на предыдущую точку
+         if (haveBraids){
+                makeBraid(startPoint);
+            }
             setMode(startPoint,VISITED);
             startPoint = stack[stack.size()-1];
             stack.pop_back();
 
         }
         else{ //если нет соседей и точек в стеке, но не все точки посещены, выбираем случайную из непосещенных
+
             cellStringUnvisited = getUnvisitedCells();
             if (cellStringUnvisited.size>0){
                 randNum  = randomRange(0, cellStringUnvisited.size-1);
@@ -145,6 +133,50 @@ Maze::CellString Maze::getNeighbours(Cell c,int distance){
     return cells;
 }
 
+void Maze::makeBraid(Cell c){
+    int x = c.x;
+    int y = c.y;
+    int distance = 1;
+    Cell up = {x, y - distance};
+    Cell rt = {x + distance, y};
+    Cell dw = {x, y + distance};
+    Cell lt = {x - distance, y};
+    Cell d[4]  = {dw, rt, up, lt};
+    int size = 0;
+
+    CellString cells;
+    cells.cells = new Cell[4];
+
+    for(int i = 0; i < 4; i++){ //для каждого направдения
+        if(d[i].x > 3 && d[i].x < width-3 && d[i].y > 3 && d[i].y < height-3){ //если не выходит за границы лабиринта
+            unsigned int mazeCellCurrent = maze[d[i].x][d[i].y];
+            Cell cellCurrent  = d[i];
+            if(mazeCellCurrent == WALL){
+                cells.cells[size] = cellCurrent; //записать в массив;
+                size++;
+            }
+        }
+    }
+    cells.size = size;
+
+    if (size>0){
+       for (int i =0; i<size; i++){
+
+           int delx = cells.cells[i].x;
+           int dely = cells.cells[i].y;
+
+           if (maze[delx][dely-2]==VISITED ||   maze[delx][dely+2]==VISITED ){
+                      continue;
+              } else if (maze[delx-2][dely]==VISITED ||  maze[delx+2][dely]==VISITED  ){
+                      continue;
+              } else {
+                     maze[delx][dely]=VISITED;
+                }
+      }
+     }
+       delete cells.cells;
+
+}
 
 void  Maze::removeWall(Cell first, Cell second){
     short int xDiff = second.x - first.x;
