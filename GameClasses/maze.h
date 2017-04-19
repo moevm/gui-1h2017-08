@@ -19,7 +19,7 @@ class Maze{
         int size;
     };
 
-
+    bool haveBraids;
 
     Cell  startPoint;
     Cell  exitPoint;
@@ -45,12 +45,12 @@ protected:
     void generate ();
     void backtrackGeneration();
     CellString getNeighbours(Cell c,int distance);
+    void makeBraid(Cell c);
     void removeWall(Cell first, Cell second);
     void setMode(Cell c, int mode);
     int randomRange( int low, int high);
     CellString getUnvisitedCells();
     int unvisitedCount();
-    void makeBraids();
     void makeRooms(int num);
 
 };
