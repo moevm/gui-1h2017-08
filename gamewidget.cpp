@@ -20,7 +20,7 @@ void GameWidget::generateLevel(int h, int w)
 
 
    // delete this->level;
-
+    this->player = new Player(QVector2D(30,30),25);
     this->level = new Level(this->player,h,w);
     this->show();
 
@@ -119,6 +119,12 @@ void GameWidget::action()
 {
 
     player->action();
+    if(level->getFinised())
+    {
+        this->player = new Player(QVector2D(30,30),25);
+        this->level = new Level(this->player,5,5);
+        emit keyEscapePressed();  /// потом доделать
+    }
     #ifdef QT_NO_DEBUG   // если не Отладка
         this->level->checkCollision(nullptr);
     #endif

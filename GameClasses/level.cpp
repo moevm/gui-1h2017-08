@@ -9,6 +9,11 @@ Map *Level::getCurr_map()
 }
 
 
+bool Level::getFinised() const
+{
+    return finised;
+}
+
 Level::Level(Player *pl, int mazeWidth, int mazeHeight)
 {
     curr_map = new Map();
@@ -52,5 +57,14 @@ void Level::checkCollision(GameWidget *paint)
     foreach (Wall curr_wall, curr_map->walls) {
         save +=collisionCircleAndRectangle(&curr_wall, this->pl, paint);
     }
+    Wall * rect =  &this->curr_map->cells[this->curr_map->cells.length()-1];
+    if(collisionPointAndRectangle(new QVector2D(this->pl->getCentr()),//&*(this->curr_map->cells.end()),
+                                  rect,
+                                  paint))
+    {
+        // урвоень пройден
+        this->finised = true;
+    }
+
     this->pl->setForce(save);
 }
