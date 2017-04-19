@@ -14,6 +14,7 @@ public:
     Level(Player * pl);
     void draw(GameWidget *obg);
     void checkCollision(GameWidget *paint);
+    Map *getCurr_map();
 };
 
 #endif // LEVEL_H

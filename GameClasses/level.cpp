@@ -3,6 +3,12 @@
 #include "maze.h"
 
 
+Map *Level::getCurr_map()
+{
+    return curr_map;
+}
+
+
 Level::Level(Player *pl)
 {
     curr_map = new Map();

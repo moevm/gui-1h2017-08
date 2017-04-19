@@ -2,10 +2,20 @@
 
 
 
+QString *Wall::getPath()
+{
+    return path;
+}
+
+Wall::~Wall()
+{
+    //delete path;
+}
+
 Wall::Wall(QVector2D position, float h, float w ):
     RectangleCollision(position,w,h)
 {
-
+    path = new QString(":/img/img/wall.png");
 }
 
 void Wall::draw(GameWidget *obg)
@@ -21,6 +31,11 @@ void Wall::draw(GameWidget *obg)
     float h =  this->height;
     float w = this->width;
      // pain.drawRect(QRectF(x, y,w,  h));
-    pain.drawPixmap(QRect(QPoint(x,y),QSize(w, h)),QPixmap( ":/img/img/wall.png"));
+    pain.drawPixmap(QRect(QPoint(x,y),QSize(w, h)),QPixmap(*path));
 
+}
+
+void Wall::setPath(const QString &value)
+{
+   path = new QString(value);
 }

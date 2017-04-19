@@ -1,5 +1,7 @@
 #include "player.h"
 #include "iostream"
+
+#include "math_function.h"
 using std::cout;
 
 QVector2D Player::getDirection() const
@@ -52,6 +54,13 @@ void Player::draw(GameWidget *obg)
 
 
      pain.drawPixmap(QRect(QPoint(x,y),QSize(pic.width()/4,pic.height()/4)),pic);
+
+    #ifndef QT_NO_DEBUG
+        pain.drawText(QRect(QPoint(0,0),QSize(100, 100)),
+                  "x: " + QString().setNum((direction).x()) + '\n' +
+                  "y: " + QString().setNum((direction).y()) + '\n' +
+                  "angle: " + QString().setNum(angle));
+    #endif
 }
 
 
@@ -65,16 +74,8 @@ void Player::action()
 
 void Player::moveTo(QVector2D toPoint)
 {
-    float ax = look.x(); //position.x();
-    float ay = look.y(); //position.y();
-    float bx = toPoint.x();
-    float by = toPoint.y();
+    angle = findAngle(look, (toPoint-getCentr()));
 
-    angle = atan((ax*bx+ay*by)/(sqrt(ax*ax+ay*ay)*sqrt(bx*bx+by*by)))*180.0;
-
-    cout<<angle<<"\n";
-
-    this->look = (toPoint - (this->position) ).normalized();
     this->direction = (toPoint - (this->position) ).normalized()* speed;
 
 }
