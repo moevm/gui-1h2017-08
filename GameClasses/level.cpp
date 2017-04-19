@@ -1,6 +1,7 @@
 #include "level.h"
 #include "collision.h"
 #include "maze.h"
+#include "ground.h"
 
 
 Map *Level::getCurr_map()
@@ -27,11 +28,15 @@ Level::Level(Player *pl)
             {
                 curr_map->addWall(Wall(QVector2D(wallWidth*j,wallHeight*i), wallWidth,wallHeight));
             }
-            if(maze.VISITED == map[i][j] && !done)
+            if(maze.VISITED == map[i][j] )
             {
-
-                this->pl->setPosition(QVector2D(wallWidth*j,wallHeight*i));
-                done=true;
+                Wall cell = (Wall(QVector2D(wallWidth*j,wallHeight*i), wallWidth,wallHeight));
+                cell.setPath(QString(":/img/img/cell.png"));
+                curr_map->addCell(cell);
+                 if (!done){
+                     this->pl->setPosition(QVector2D(wallWidth*j,wallHeight*i));
+                     done=true;
+                 }
             }
         }
      }
