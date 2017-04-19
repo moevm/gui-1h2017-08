@@ -46,14 +46,18 @@ void Player::draw(GameWidget *obg)
     float y =  this->position.y() + obg->getTranslation().y();
     float d =  this->R*2;
 
+
     QPixmap pic = QPixmap (":/img/img/player.png");
     QTransform transform;
     QTransform //trans = transform.scale(sqrt(pic.size().width()), sqrt(pic.size().height()));
         trans = transform.rotate(angle);
     pic = QPixmap(pic.transformed(trans));
-
+    float m=  (float)pic.width()/10.0;
 
     pain.drawPixmap(QRect(QPoint(x,y),QSize(d, d)),pic);
+
+    //pain.drawPixmap(QRect(QPoint(x,y),QSize((float)pic.width()/10.0,(float)pic.height()/10.0)),pic);
+
     #ifndef QT_NO_DEBUG
         pain.drawText(QRect(QPoint(0,0),QSize(100, 100)),
                   "x: " + QString().setNum((direction).x()) + '\n' +

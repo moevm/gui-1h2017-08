@@ -9,11 +9,11 @@ Map *Level::getCurr_map()
 }
 
 
-Level::Level(Player *pl)
+Level::Level(Player *pl, int mazeWidth, int mazeHeight)
 {
     curr_map = new Map();
-    int mazeWidth = 41;
-    int mazeHeight = 71;
+  //  int mazeWidth = 41;
+  // int mazeHeight = 71;
     int wallWidth = 100;
     int wallHeight = 100;
 

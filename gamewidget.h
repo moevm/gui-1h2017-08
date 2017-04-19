@@ -43,6 +43,8 @@ public:
     void mousePressEvent(QMouseEvent *ev);
     void leaveEvent(QEvent *ev);
     void mouseReleaseEvent(QMouseEvent *ev);
+    void keyPressEvent(QKeyEvent  * ev);
+
 
     void action();
 
@@ -57,8 +59,12 @@ signals:
     void mousePressed();
     void mousePos();
     void mouseLeft();
+    void keyEscapePressed();
+    void openLevel();
 
 public slots:
+     void generateLevel(int h=3, int w=3);
+     void getSettings();
 };
 
 #endif // GAMEWIDGET_H
