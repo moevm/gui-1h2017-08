@@ -54,13 +54,11 @@ void Player::draw(GameWidget *obg)
     pic = QPixmap(pic.transformed(trans));
     float m=  (float)pic.width()/10.0;
 
-<<<<<<< HEAD
     pain.drawPixmap(QRect(QPoint(x,y),QSize(d, d)),pic);
 
     //pain.drawPixmap(QRect(QPoint(x,y),QSize((float)pic.width()/10.0,(float)pic.height()/10.0)),pic);
-=======
-     pain.drawPixmap(QRect(QPoint(x,y),QSize(pic.width()/4,pic.height()/4)),pic);
->>>>>>> d308ea92dcccc3489fb83f1344e8f25edc0784ce
+    //pain.drawPixmap(QRect(QPoint(x,y),QSize(pic.width()/4,pic.height()/4)),pic);
+
 
     #ifndef QT_NO_DEBUG
         pain.drawText(QRect(QPoint(0,0),QSize(100, 100)),

@@ -2,7 +2,7 @@
 #define MAP_H
 
 #include "wall.h"
-#include "ground.h"
+
 
 class Wall;
 

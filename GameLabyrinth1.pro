@@ -36,12 +36,9 @@ SOURCES += main.cpp\
     GameClasses/collision.cpp \
     GameClasses/drawclass.cpp \
     GameClasses/maze.cpp \
-<<<<<<< HEAD
     GameClasses/math_function.cpp \
     levelsetting.cpp
-=======
     GameClasses/math_function.cpp
->>>>>>> d308ea92dcccc3489fb83f1344e8f25edc0784ce
 
 HEADERS  += mainwindow.h \
     gamewidget.h \
@@ -55,12 +52,9 @@ HEADERS  += mainwindow.h \
     GameClasses/collision.h \
     GameClasses/drawclass.h \
     GameClasses/maze.h \
-<<<<<<< HEAD
     GameClasses/math_function.h \
     levelsetting.h
-=======
     GameClasses/math_function.h
->>>>>>> d308ea92dcccc3489fb83f1344e8f25edc0784ce
 
 FORMS    += mainwindow.ui \
     levelsetting.ui

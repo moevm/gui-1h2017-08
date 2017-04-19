@@ -1,7 +1,6 @@
 #include "level.h"
 #include "collision.h"
 #include "maze.h"
-#include "ground.h"
 
 
 Map *Level::getCurr_map()
