@@ -45,7 +45,6 @@ public:
     void mouseReleaseEvent(QMouseEvent *ev);
     void keyPressEvent(QKeyEvent  * ev);
 
-
     void action();
 
     void drawLine(QVector2D p1, QVector2D p2 ); // для визуализации
@@ -65,6 +64,8 @@ signals:
 public slots:
      void generateLevel(int h=3, int w=3);
      void getSettings();
+
+     void resizeEvent(QResizeEvent * event);
 };
 
 #endif // GAMEWIDGET_H

@@ -31,6 +31,8 @@ void Wall::draw(GameWidget *obg)
     float h =  this->height;
     float w = this->width;
      // pain.drawRect(QRectF(x, y,w,  h));
+   // pain.setViewport(0,0,1000,600);
+ //   pain.setWindow(QRect(0,0,1000,600));
     pain.drawPixmap(QRect(QPoint(x,y),QSize(w, h)),QPixmap(*path));
 
 }

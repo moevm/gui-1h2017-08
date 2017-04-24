@@ -14,25 +14,28 @@ bool Level::getFinised() const
     return finised;
 }
 
-Level::Level(Player *pl, int mazeWidth, int mazeHeight)
+Level::Level(Player *pl, int mazeWidth, int mazeHeight, int blockSize)
 {
     curr_map = new Map();
   //  int mazeWidth = 41;
   // int mazeHeight = 71;
-    int wallWidth = 100;
-    int wallHeight = 100;
-
+    int wallWidth = blockSize;
+    int wallHeight = blockSize;
+    h = mazeHeight;
+    w = mazeWidth;
     Maze maze (mazeWidth,mazeHeight);
-    int **map = maze.getMap();
+    map = maze.getMap();
     this->pl=pl;
     bool done = false;
+    block = blockSize;
+
     for (int i=0; i<mazeWidth; i++){
         for (int j=0; j<mazeHeight; j++){
-            if(maze.WALL == map[i][j])
+            if(Maze::WALL == map[i][j])
             {
                 curr_map->addWall(Wall(QVector2D(wallWidth*j,wallHeight*i), wallWidth,wallHeight));
             }
-            if(maze.VISITED == map[i][j] )
+            if(Maze::VISITED == map[i][j] )
             {
                 Wall cell = (Wall(QVector2D(wallWidth*j,wallHeight*i), wallWidth,wallHeight));
                 cell.setPath(QString(":/img/img/cell.png"));
@@ -40,6 +43,40 @@ Level::Level(Player *pl, int mazeWidth, int mazeHeight)
                  if (!done){
                      this->pl->setPosition(QVector2D(wallWidth*j,wallHeight*i));
                      done=true;
+                 }
+            }
+        }
+     }
+}
+
+void Level::resizeAll(int blockSize){
+
+    int wallWidth = blockSize;
+    int wallHeight = blockSize;
+    curr_map = new Map();
+    bool done = false;
+     int mazeHeight = h;
+     int mazeWidth = w;
+
+
+    for (int i=0; i<mazeWidth; i++){
+        for (int j=0; j<mazeHeight; j++){
+            if(Maze::WALL == map[i][j])
+            {
+                curr_map->addWall(Wall(QVector2D(wallWidth*j,wallHeight*i), wallWidth,wallHeight));
+            }
+            if(Maze::VISITED == map[i][j] )
+            {
+                Wall cell = (Wall(QVector2D(wallWidth*j,wallHeight*i), wallWidth,wallHeight));
+                cell.setPath(QString(":/img/img/cell.png"));
+                curr_map->addCell(cell);
+                 if (!done){
+                     QVector2D pos = this->pl->getPosition();
+
+                     this->pl->setPosition(QVector2D(pos.x()*blockSize/block,pos.y()*blockSize/block));
+                     this->pl->setR(blockSize/4.0);
+                     done=true;
+                     block = blockSize;
                  }
             }
         }

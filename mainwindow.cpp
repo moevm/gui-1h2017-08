@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->GameFiels->hide();
     this->setGeometry(100,100,1000,600);
+
 }
 
 MainWindow::~MainWindow()

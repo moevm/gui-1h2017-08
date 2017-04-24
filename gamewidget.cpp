@@ -2,6 +2,7 @@
 #include "GameClasses/collision.h"
 #include "levelsetting.h"
 #include "mainwindow.h"
+#include <QtCore/qmath.h>
 
 QVector2D GameWidget::getTranslation() const
 {
@@ -57,6 +58,8 @@ void GameWidget::paintEvent(QPaintEvent *event)
     {
         m_lastRect = event->rect();
     }
+
+
     //this->move(this->width()/2-player->getCentr().x(), this->height()/2-player->getCentr().y());
     //this->raise();
    // this->resize(this->width(), this->height());
@@ -132,4 +135,10 @@ void GameWidget::action()
    // this->level->checkCollision(nullptr);
 }
 
+void GameWidget::resizeEvent(QResizeEvent * event){
+    QSize s = event->size();
+    double px =  sqrt((s.width()*s.height())/60.0);
+    level->resizeAll(px);
+    level->draw(this);
+}
 

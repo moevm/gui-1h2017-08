@@ -57,7 +57,10 @@ void Player::draw(GameWidget *obg)
         pain.setRenderHint(QPainter::HighQualityAntialiasing);
         pain.translate(x+this->R , y+this->R );
         pain.rotate(angle+45); // градус
-         pain.drawPixmap(QRect(QPoint(0-R,0-R),QSize(d, d)),pic);
+
+      // pain.setViewport(0,0,500,300);
+      //  pain.setWindow(QRect(0,0,1000,600));
+        pain.drawPixmap(QRect(QPoint(0-R,0-R),QSize(d, d)),pic);
         pain.translate(-(x+this->R) , -(y+this->R) );
         pain.end();
         pic = rotatePixmap;
