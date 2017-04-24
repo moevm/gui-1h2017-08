@@ -1,5 +1,5 @@
 #include "wall.h"
-
+#include "collision.h"
 
 
 QString *Wall::getPath()
@@ -20,6 +20,10 @@ Wall::Wall(QVector2D position, float h, float w ):
 
 void Wall::draw(GameWidget *obg)
 {
+    if(outsideWindow(this, obg))
+    {
+        return;
+    }
 
     QPainter pain(obg);
     pain.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap));

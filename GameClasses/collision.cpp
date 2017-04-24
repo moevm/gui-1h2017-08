@@ -239,3 +239,24 @@ bool collisionPointAndRectangle(QVector2D *p, RectangleCollision *rect, GameWidg
     return true;
 
 }
+
+bool outsideWindow(RectangleCollision *rect, GameWidget * paint)
+{
+    if( paint->size().width() -paint->getTranslation().x() < rect->getPosition().x())
+    {
+        return true;
+    }
+    if(0  -paint->getTranslation().x()> rect->getPosition().x() + rect->getWidth())
+    {
+        return true;
+    }
+
+    if(paint->size().height() -paint->getTranslation().y() < rect->getPosition().y())
+    {
+        return true;
+    }
+    if(0  -paint->getTranslation().y()> rect->getPosition().y() + rect->getHeight())
+    {
+        return true;
+    }
+}

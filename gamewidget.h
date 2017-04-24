@@ -44,7 +44,6 @@ public:
     void leaveEvent(QEvent *ev);
     void mouseReleaseEvent(QMouseEvent *ev);
     void keyPressEvent(QKeyEvent  * ev);
-
     void action();
 
     void drawLine(QVector2D p1, QVector2D p2 ); // для визуализации

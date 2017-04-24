@@ -19,6 +19,8 @@ bool circleInRectX(RectangleCollision *rect, RoundCollision *circle, GameWidget 
 bool circleInRectY(RectangleCollision *rect, RoundCollision *circle, GameWidget * paint);
 QVector2D checkAreaFromTheCorner(RectangleCollision *rect, RoundCollision *circle, GameWidget * paint);
 
+bool outsideWindow(RectangleCollision *rect, GameWidget * paint);
+
 bool getLine(const QVector2D  p1 ,const QVector2D p2, float &k, float &b); //возвращает false, если эта линия имеет вид x=b
 bool inLine(float line1, float line2, float point);
 
