@@ -60,6 +60,7 @@ void GameWidget::paintEvent(QPaintEvent *event)
     //this->move(this->width()/2-player->getCentr().x(), this->height()/2-player->getCentr().y());
     //this->raise();
    // this->resize(this->width(), this->height());
+
     level->draw(this);
     player->draw(this);
     #ifndef QT_NO_DEBUG   // если Отладка, то рисуеются линии отвечающие за определение столкновения объектов. (а NDEBUG не объявлен, я думал это стандартная костанта для всех IDE, а вон оно как)
