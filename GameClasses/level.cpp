@@ -14,23 +14,50 @@ bool Level::getFinised() const
     return finised;
 }
 
-Level::Level(Player *pl, int mazeWidth, int mazeHeight, int blockSize)
+void Level::setSizes(){
+    mapSizes[0][0] = 15;
+    mapSizes[0][1] = 15;
+
+    mapSizes[1][0] = 27;
+    mapSizes[1][1] = 31;
+
+    mapSizes[2][0] = 59;
+    mapSizes[2][1] = 73;
+}
+
+int  Level::getLastLevel(){
+    return 3;
+}
+
+Level::Level(Player *pl, int mazeWidth, int mazeHeight, int stage, int blockSize)
 {
+    setSizes();
+    curLevel = stage;
+
     curr_map = new Map();
-  //  int mazeWidth = 41;
-  // int mazeHeight = 71;
+
     int wallWidth = blockSize;
     int wallHeight = blockSize;
-    h = mazeHeight;
-    w = mazeWidth;
-    Maze maze (mazeWidth,mazeHeight);
+
+    if (stage > 0){
+       w = mapSizes[curLevel-1][0];
+       h = mapSizes[curLevel-1][1];
+     } else {
+        h = mazeHeight;
+        w = mazeWidth;
+     }
+
+
+    Maze maze (w,h);
     map = maze.getMap();
     this->pl=pl;
     bool done = false;
     block = blockSize;
 
-    for (int i=0; i<mazeWidth; i++){
-        for (int j=0; j<mazeHeight; j++){
+
+
+    for (int i=0; i<w; i++){
+        for (int j=0; j<h; j++){
             if(Maze::WALL == map[i][j])
             {
                 curr_map->addWall(Wall(QVector2D(wallWidth*j,wallHeight*i), wallWidth,wallHeight));
@@ -104,4 +131,7 @@ void Level::checkCollision(GameWidget *paint)
     }
 
     this->pl->setForce(save);
+}
+int Level::getLevel(){
+    return curLevel;
 }

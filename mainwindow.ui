@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>398</width>
-    <height>431</height>
+    <width>1000</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="palette">
@@ -229,6 +229,7 @@
     <signal>openLevel()</signal>
     <slot>generateLevel()</slot>
     <slot>getSettings()</slot>
+    <slot>startCompaign()</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -273,8 +274,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>168</x>
-     <y>225</y>
+     <x>537</x>
+     <y>97</y>
     </hint>
     <hint type="destinationlabel">
      <x>397</x>
@@ -285,32 +286,16 @@
   <connection>
    <sender>company</sender>
    <signal>clicked()</signal>
-   <receiver>GameFiels</receiver>
-   <slot>show()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>236</x>
-     <y>167</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>361</x>
-     <y>412</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>company</sender>
-   <signal>clicked()</signal>
    <receiver>Menu</receiver>
    <slot>hide()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>175</x>
-     <y>167</y>
+     <x>537</x>
+     <y>39</y>
     </hint>
     <hint type="destinationlabel">
      <x>88</x>
-     <y>121</y>
+     <y>114</y>
     </hint>
    </hints>
   </connection>
@@ -321,8 +306,8 @@
    <slot>getSettings()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>215</x>
-     <y>206</y>
+     <x>537</x>
+     <y>68</y>
     </hint>
     <hint type="destinationlabel">
      <x>323</x>
@@ -342,7 +327,23 @@
     </hint>
     <hint type="destinationlabel">
      <x>252</x>
-     <y>323</y>
+     <y>114</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>company</sender>
+   <signal>clicked()</signal>
+   <receiver>GameFiels</receiver>
+   <slot>startCompaign()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>498</x>
+     <y>22</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>201</x>
+     <y>142</y>
     </hint>
    </hints>
   </connection>

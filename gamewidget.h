@@ -52,6 +52,7 @@ public:
     QVector2D getTranslation() const;
     void setTranslation(const QVector2D &value);
 
+
 signals:
 
     void mousePressed();
@@ -61,6 +62,7 @@ signals:
     void openLevel();
 
 public slots:
+     void startCompaign();
      void generateLevel(int h=3, int w=3);
      void getSettings();
 
