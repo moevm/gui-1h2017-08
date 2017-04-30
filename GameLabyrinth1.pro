@@ -37,7 +37,10 @@ SOURCES += main.cpp\
     GameClasses/drawclass.cpp \
     GameClasses/maze.cpp \
     GameClasses/math_function.cpp \
-    levelsetting.cpp
+    levelsetting.cpp \
+    FormClasses/campaignform.cpp \
+    FormClasses/menuform.cpp \
+    FormClasses/generateform.cpp
     GameClasses/math_function.cpp
 
 HEADERS  += mainwindow.h \
@@ -53,11 +56,16 @@ HEADERS  += mainwindow.h \
     GameClasses/drawclass.h \
     GameClasses/maze.h \
     GameClasses/math_function.h \
-    levelsetting.h
+    levelsetting.h \
+    FormClasses/campaignform.h \
+    FormClasses/menuform.h \
+    FormClasses/generateform.h
     GameClasses/math_function.h
 
 FORMS    += mainwindow.ui \
-    levelsetting.ui
+    generatelevel.ui \
+    campaign.ui \
+    menu.ui
 
 RESOURCES += \
     resource.qrc

@@ -4,6 +4,18 @@
 #include "mainwindow.h"
 #include <QtCore/qmath.h>
 
+
+GameWidget::GameWidget(QWidget *parent) :
+    QWidget(parent),m_lastRect(0,0,0,0)
+{
+   // setFocusPolicy(Qt::StrongFocus);
+
+    this->player = new Player(QVector2D(30,30),25);
+    this->level = new Level(this->player);
+    startTimer(1000/60);  // 60 fps
+}
+
+
 QVector2D GameWidget::getTranslation() const
 {
     return translation;
@@ -28,12 +40,14 @@ void GameWidget::generateLevel(int h, int w)
 
 }
 
-void GameWidget::startCompaign(){
+void GameWidget::startCampaign(int num){
     this->player = new Player(QVector2D(30,30),25);
-    this->level = new Level(this->player,3,3,1);
+    this->level = new Level(this->player,3,3,num);
     this->show();
 }
-
+void GameWidget::continueCampaign(){
+    this->show();
+}
 void GameWidget::getSettings()
 {
     LevelSetting *set = new LevelSetting(this);
@@ -42,15 +56,6 @@ void GameWidget::getSettings()
     emit openLevel();
 }
 
-GameWidget::GameWidget(QWidget *parent) :
-    QWidget(parent),m_lastRect(0,0,0,0)
-{
-    setFocusPolicy(Qt::StrongFocus);
-
-    this->player = new Player(QVector2D(30,30),25);
-    this->level = new Level(this->player);
-    startTimer(1000/60);  // 60 fps
-}
 
 GameWidget::~GameWidget()
 {
@@ -118,10 +123,10 @@ void GameWidget::mouseReleaseEvent(QMouseEvent *ev)
 
 void GameWidget::keyPressEvent(QKeyEvent  *ev)
 {
-    if(ev->key() == Qt::Key_Escape  )
+ /*   if(ev->key() == Qt::Key_Escape  )
     {
         emit keyEscapePressed();
-    }
+    }*/
 }
 
 

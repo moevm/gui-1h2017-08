@@ -73,7 +73,12 @@ Level::Level(Player *pl, int mazeWidth, int mazeHeight, int stage, int blockSize
                  }
             }
         }
-     }
+    }
+}
+
+Level::~Level()
+{
+
 }
 
 void Level::resizeAll(int blockSize){
@@ -126,8 +131,9 @@ void Level::checkCollision(GameWidget *paint)
                                   rect,
                                   paint))
     {
-        // урвоень пройден
+        // уровень пройден
         this->finised = true;
+        //emit levelFinished(curLevel);
     }
 
     this->pl->setForce(save);
