@@ -134,6 +134,7 @@ void Level::checkCollision(GameWidget *paint)
         // уровень пройден
         this->finised = true;
         //emit levelFinished(curLevel);
+
     }
 
     this->pl->setForce(save);

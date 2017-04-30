@@ -1,6 +1,5 @@
 #include "gamewidget.h"
 #include "GameClasses/collision.h"
-#include "levelsetting.h"
 #include "mainwindow.h"
 #include <QtCore/qmath.h>
 
@@ -48,14 +47,6 @@ void GameWidget::startCampaign(int num){
 void GameWidget::continueCampaign(){
     this->show();
 }
-void GameWidget::getSettings()
-{
-    LevelSetting *set = new LevelSetting(this);
-    set->show();
-    connect(set,SIGNAL(generateLevel(int,int)), this, SLOT(generateLevel(int,int)));
-    emit openLevel();
-}
-
 
 GameWidget::~GameWidget()
 {

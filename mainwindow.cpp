@@ -39,6 +39,7 @@ void MainWindow::initParameters()
     QObject::connect(generateForm->ui->generateLevel, SIGNAL(pressed()), this, SLOT(generatorStart()));
     QObject::connect(this, SIGNAL(generateLevel(int,int)), this->ui->GameFiels, SLOT(generateLevel(int,int)));
 
+    QObject::connect(this->ui->GameFiels, SIGNAL(keyEscapePressed()), this, SLOT(openMenu()));
     generateForm->hide();
 
     ui->GameFiels->hide();

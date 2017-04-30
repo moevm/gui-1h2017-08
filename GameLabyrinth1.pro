@@ -37,7 +37,6 @@ SOURCES += main.cpp\
     GameClasses/drawclass.cpp \
     GameClasses/maze.cpp \
     GameClasses/math_function.cpp \
-    levelsetting.cpp \
     FormClasses/campaignform.cpp \
     FormClasses/menuform.cpp \
     FormClasses/generateform.cpp
@@ -56,7 +55,6 @@ HEADERS  += mainwindow.h \
     GameClasses/drawclass.h \
     GameClasses/maze.h \
     GameClasses/math_function.h \
-    levelsetting.h \
     FormClasses/campaignform.h \
     FormClasses/menuform.h \
     FormClasses/generateform.h
