@@ -38,7 +38,7 @@ SOURCES += main.cpp\
     GameClasses/maze.cpp \
     GameClasses/math_function.cpp \
     GameClasses/monster.cpp \
-    GameClasses/teleportermonster.cpp
+    GameClasses/teleportermonster.cpp \
     FormClasses/campaignform.cpp \
     FormClasses/menuform.cpp \
     FormClasses/generateform.cpp
@@ -58,7 +58,7 @@ HEADERS  += mainwindow.h \
     GameClasses/maze.h \
     GameClasses/math_function.h \
     GameClasses/monster.h \
-    GameClasses/teleportermonster.h
+    GameClasses/teleportermonster.h \
     FormClasses/campaignform.h \
     FormClasses/menuform.h \
     FormClasses/generateform.h

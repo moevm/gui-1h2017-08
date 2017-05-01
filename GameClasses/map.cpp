@@ -24,3 +24,25 @@ void Map::draw(GameWidget *obg)
         curr_cell.draw(obg);
     }
 }
+void Map::addMonster(Monster *m)
+{
+   monsters.push_back(m);
+}
+
+void Map::genMonsters(){
+    if (cells.size()<300 || !monsters.empty()) return;
+    int amount = cells.size()/300;
+
+    for (int i = 0; i<amount; i++){
+        int targetCell =  rand() % (cells.length()-1);
+        TeleporterMonster *t = new TeleporterMonster(cells[targetCell].getPosition());
+        addMonster(t);
+    }
+}
+
+Map::~Map(){
+    foreach (Monster* m, this->monsters) {
+        delete m;
+    }
+}
+

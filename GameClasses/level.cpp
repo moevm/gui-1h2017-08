@@ -54,8 +54,6 @@ Level::Level(Player *pl, int mazeWidth, int mazeHeight, int stage, int blockSize
     bool done = false;
     block = blockSize;
 
-
-
     for (int i=0; i<w; i++){
         for (int j=0; j<h; j++){
             if(Maze::WALL == map[i][j])
@@ -74,6 +72,8 @@ Level::Level(Player *pl, int mazeWidth, int mazeHeight, int stage, int blockSize
             }
         }
     }
+
+    curr_map->genMonsters();
 }
 
 Level::~Level()
