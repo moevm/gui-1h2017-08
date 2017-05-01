@@ -4,30 +4,9 @@
 #include "math_function.h"
 using std::cout;
 
-QVector2D Player::getDirection() const
-{
-    return direction;
-}
-
-void Player::setDirection(const QVector2D &value)
-{
-    direction = value.normalized()* speed;
-}
-
-QVector2D Player::getForce() const
-{
-    return force;
-}
-
-void Player::setForce(const QVector2D &value)
-{
-   /* if(value!=QVector2D(0,0))
-        this->speed=5;*/
-    force = value;
-}
 
 Player::Player(QVector2D position, float r):
-    RoundCollision(position,r)
+    MovingObject(position,r)
 {
     this->direction = QVector2D(0,0);
     angle = 0;
@@ -56,7 +35,7 @@ void Player::draw(GameWidget *obg)
         pain.setRenderHint(QPainter::SmoothPixmapTransform);
         pain.setRenderHint(QPainter::HighQualityAntialiasing);
         pain.translate(x+this->R , y+this->R );
-        pain.rotate(angle+45); // градус
+        pain.rotate(angle); // градус
 
       // pain.setViewport(0,0,500,300);
       //  pain.setWindow(QRect(0,0,1000,600));
@@ -74,7 +53,7 @@ void Player::draw(GameWidget *obg)
 }
 
 
-
+/*
 void Player::action()
 {
     if(this->speed < this->maxSpeed && this->direction!=QVector2D(0,0))
@@ -96,13 +75,32 @@ void Player::stop()
     this->direction = QVector2D(0,0);
 }
 
+*/
 
 
 
 
 
 
+/*QVector2D Player::getDirection() const
+{
+    return direction;
+}
 
+void Player::setDirection(const QVector2D &value)
+{
+    direction = value.normalized()* speed;
+}
+
+QVector2D Player::getForce() const
+{
+    return force;
+}
+
+void Player::setForce(const QVector2D &value)
+{
+    force = value;
+}*/
 
 
 

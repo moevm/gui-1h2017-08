@@ -23,6 +23,10 @@ void Map::draw(GameWidget *obg)
     foreach (Wall curr_cell, this->cells) {
         curr_cell.draw(obg);
     }
+    foreach (Monster *curr_m, this->monsters) {
+        curr_m->draw(obg, obg->getTranslation());
+    }
+
 }
 void Map::addMonster(Monster *m)
 {
@@ -30,8 +34,8 @@ void Map::addMonster(Monster *m)
 }
 
 void Map::genMonsters(){
-    if (cells.size()<300 || !monsters.empty()) return;
-    int amount = cells.size()/300;
+    if (cells.size()<30 || !monsters.empty()) return;
+    int amount = cells.size()/30;
 
     for (int i = 0; i<amount; i++){
         int targetCell =  rand() % (cells.length()-1);

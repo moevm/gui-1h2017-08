@@ -28,6 +28,7 @@ public:
     Map *getCurr_map();
     bool getFinised() const;
     void resizeAll(int blockSize);
+    bool createMap(int w, int h, int wallWidth, int wallHeight);
 
 
 };

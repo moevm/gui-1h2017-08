@@ -3,5 +3,15 @@
         <file>img/cell.png</file>
         <file>img/wall.png</file>
         <file>img/player.png</file>
+        <file>img/cell01.png</file>
+    </qresource>
+    <qresource prefix="/img/teleportMonsterSprites">
+        <file>t01.png</file>
+        <file>t02.png</file>
+        <file>t03.png</file>
+        <file>t04.png</file>
+        <file>t05.png</file>
+        <file>t06.png</file>
+        <file>t07.png</file>
     </qresource>
 </RCC>

@@ -239,6 +239,22 @@ bool collisionPointAndRectangle(QVector2D *p, RectangleCollision *rect, GameWidg
     return true;
 
 }
+bool collisionCircleAndCircle(RoundCollision *c1, RoundCollision *c2, GameWidget * paint)
+{
+    if(paint!=nullptr)
+    {
+        //DrawClass::drawPoint(*p,  paint);
+        if((c1->getCentr().distanceToPoint(c2->getCentr()) < 100))
+            DrawClass::drawLine(c1->getCentr(), c2->getCentr(), paint);
+    }
+    if((c1->getCentr().distanceToPoint(c2->getCentr()) < c1->getR() + c2->getR()))
+    {
+        return true;
+    }
+
+    return false;
+
+}
 
 bool outsideWindow(RectangleCollision *rect, GameWidget * paint)
 {

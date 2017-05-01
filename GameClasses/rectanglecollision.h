@@ -10,7 +10,7 @@ class RectangleCollision: public Unit
 protected:
     float width, height;
 public:
-    RectangleCollision(QVector2D position, float h=0, float w=0 );
+    RectangleCollision(QVector2D position= QVector2D(0,0), float h=0, float w=0 );
 
     float getWidth() const;
     void setWidth(float value);

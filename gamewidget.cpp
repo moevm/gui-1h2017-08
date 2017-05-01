@@ -125,6 +125,9 @@ void GameWidget::action()
 {
 
     player->action();
+    foreach (Monster *curr_m, this->level->getCurr_map()->monsters) {
+        curr_m->action();
+    }
     if(level->getFinised() )
     {
         if (level->getLevel() < level->getLastLevel() &&  level->getLevel()!=0 ){

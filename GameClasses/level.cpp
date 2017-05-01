@@ -33,11 +33,7 @@ Level::Level(Player *pl, int mazeWidth, int mazeHeight, int stage, int blockSize
 {
     setSizes();
     curLevel = stage;
-
-    curr_map = new Map();
-
-    int wallWidth = blockSize;
-    int wallHeight = blockSize;
+    curr_map = nullptr;
 
     if (stage > 0){
        w = mapSizes[curLevel-1][0];
@@ -47,33 +43,14 @@ Level::Level(Player *pl, int mazeWidth, int mazeHeight, int stage, int blockSize
         w = mazeWidth;
      }
 
-
-    Maze maze (w,h);
-    map = maze.getMap();
     this->pl=pl;
-    bool done = false;
     block = blockSize;
 
-    for (int i=0; i<w; i++){
-        for (int j=0; j<h; j++){
-            if(Maze::WALL == map[i][j])
-            {
-                curr_map->addWall(Wall(QVector2D(wallWidth*j,wallHeight*i), wallWidth,wallHeight));
-            }
-            if(Maze::VISITED == map[i][j] )
-            {
-                Wall cell = (Wall(QVector2D(wallWidth*j,wallHeight*i), wallWidth,wallHeight));
-                cell.setPath(QString(":/img/img/cell.png"));
-                curr_map->addCell(cell);
-                 if (!done){
-                     this->pl->setPosition(QVector2D(wallWidth*j,wallHeight*i));
-                     done=true;
-                 }
-            }
-        }
-    }
+    this->createMap(w,h,blockSize,blockSize);
+
 
     curr_map->genMonsters();
+
 }
 
 Level::~Level()
@@ -87,10 +64,8 @@ void Level::resizeAll(int blockSize){
     int wallHeight = blockSize;
     curr_map = new Map();
     bool done = false;
-     int mazeHeight = h;
-     int mazeWidth = w;
-
-
+    int mazeHeight = h;
+    int mazeWidth = w;
     for (int i=0; i<mazeWidth; i++){
         for (int j=0; j<mazeHeight; j++){
             if(Maze::WALL == map[i][j])
@@ -112,7 +87,37 @@ void Level::resizeAll(int blockSize){
                  }
             }
         }
-     }
+    }
+}
+
+bool Level::createMap(int w, int h, int wallWidth, int wallHeight)
+{
+    if(curr_map)
+        delete curr_map;
+    curr_map = new Map();
+    Maze maze (w,h);
+    map = maze.getMap();
+
+    bool done = false;
+
+    for (int i=0; i<w; i++){
+        for (int j=0; j<h; j++){
+            if(Maze::WALL == map[i][j])
+            {
+                curr_map->addWall(Wall(QVector2D(wallWidth*j,wallHeight*i), wallWidth,wallHeight));
+            }
+            if(Maze::VISITED == map[i][j] )
+            {
+                Wall cell = (Wall(QVector2D(wallWidth*j,wallHeight*i), wallWidth,wallHeight));
+                cell.setPath(QString(":/img/img/cell.png"));
+                curr_map->addCell(cell);
+                 if (!done){
+                     this->pl->setPosition(QVector2D(wallWidth*j,wallHeight*i));
+                     done=true;
+                 }
+            }
+        }
+    }
 }
 
 void Level::draw(GameWidget *obg)
@@ -137,6 +142,28 @@ void Level::checkCollision(GameWidget *paint)
 
     }
 
+    foreach (Monster *curr_m, this->getCurr_map()->monsters) {
+        QVector2D monsterForse = QVector2D(0,0);
+        if(collisionCircleAndCircle(curr_m, this->pl, paint))
+        {
+            save +=(this->pl->getCentr() - curr_m->getCentr()).normalized()*this->pl->getSpeed();
+            monsterForse +=(-this->pl->getCentr() + curr_m->getCentr()).normalized()*curr_m->getSpeed();
+            //curr_m->setForce((-this->pl->getCentr() + curr_m->getCentr())/2);
+        }
+        foreach (Wall curr_wall, curr_map->walls) {
+            monsterForse +=collisionCircleAndRectangle(&curr_wall, curr_m, paint);
+        }
+        foreach (Monster *curr_m_next, this->getCurr_map()->monsters) {
+            if(curr_m_next != curr_m)
+            {
+                if(collisionCircleAndCircle(curr_m, curr_m_next, paint))
+                {
+                    monsterForse +=(curr_m->getCentr() - curr_m_next->getCentr()).normalized()*curr_m->getSpeed();
+                }
+            }
+        }
+        curr_m->setForce(monsterForse);
+    }
     this->pl->setForce(save);
 }
 int Level::getLevel(){

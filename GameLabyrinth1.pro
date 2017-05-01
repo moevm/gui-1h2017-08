@@ -41,7 +41,9 @@ SOURCES += main.cpp\
     GameClasses/teleportermonster.cpp \
     FormClasses/campaignform.cpp \
     FormClasses/menuform.cpp \
-    FormClasses/generateform.cpp
+    FormClasses/generateform.cpp \
+    GameClasses/movingobject.cpp \
+    GameClasses/animationclass.cpp
     GameClasses/math_function.cpp
 
 HEADERS  += mainwindow.h \
@@ -61,7 +63,9 @@ HEADERS  += mainwindow.h \
     GameClasses/teleportermonster.h \
     FormClasses/campaignform.h \
     FormClasses/menuform.h \
-    FormClasses/generateform.h
+    FormClasses/generateform.h \
+    GameClasses/movingobject.h \
+    GameClasses/animationclass.h
     GameClasses/math_function.h
 
 FORMS    += mainwindow.ui \

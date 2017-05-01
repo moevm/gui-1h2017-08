@@ -49,11 +49,11 @@ void MainWindow::initParameters()
 
 void MainWindow::resizeEvent(QResizeEvent *resize)
 {
-    if(cForm->isVisible())
+    //if(cForm->isVisible())
         cForm->move(this->size().width()/2 - cForm->size().width()/2, this->size().height()/2 - cForm->size().height()/2 );
-    if(menuForm->isVisible())
+    //if(menuForm->isVisible())
         menuForm->move(this->size().width()/2 - menuForm->size().width()/2, this->size().height()/2 - menuForm->size().height()/2 );
-    if(generateForm->isVisible())
+    //if(generateForm->isVisible())
         generateForm->move(this->size().width()/2 - generateForm->size().width()/2, this->size().height()/2 - generateForm->size().height()/2 );
 }
 

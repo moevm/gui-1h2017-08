@@ -10,6 +10,7 @@
 
 QVector2D collisionCircleAndRectangle( RectangleCollision * rect, RoundCollision *circle, GameWidget * paint);
 bool collisionPointAndRectangle(QVector2D *p, RectangleCollision *rect, GameWidget * paint);
+bool collisionCircleAndCircle(RoundCollision *c1, RoundCollision *c2, GameWidget * paint);
 
 bool rectUp(RectangleCollision *rect, RoundCollision *circle, GameWidget * paint);
 bool rectRight(RectangleCollision *rect, RoundCollision *circle, GameWidget * paint);
