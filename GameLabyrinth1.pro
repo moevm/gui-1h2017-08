@@ -37,7 +37,9 @@ SOURCES += main.cpp\
     GameClasses/drawclass.cpp \
     GameClasses/maze.cpp \
     GameClasses/math_function.cpp \
-    levelsetting.cpp
+    levelsetting.cpp \
+    GameClasses/monster.cpp \
+    GameClasses/teleportermonster.cpp
     GameClasses/math_function.cpp
 
 HEADERS  += mainwindow.h \
@@ -53,7 +55,9 @@ HEADERS  += mainwindow.h \
     GameClasses/drawclass.h \
     GameClasses/maze.h \
     GameClasses/math_function.h \
-    levelsetting.h
+    levelsetting.h \
+    GameClasses/monster.h \
+    GameClasses/teleportermonster.h
     GameClasses/math_function.h
 
 FORMS    += mainwindow.ui \
