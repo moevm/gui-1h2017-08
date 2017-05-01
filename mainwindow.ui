@@ -113,93 +113,6 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="QWidget" name="Menu" native="true">
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>38</width>
-             <height>17</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout">
-           <item>
-            <spacer name="verticalSpacer">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QPushButton" name="company">
-             <property name="text">
-              <string>Кампания</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="gameWithSetting">
-             <property name="text">
-              <string>Своя игра</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="exit">
-             <property name="text">
-              <string>Выход</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="verticalSpacer_2">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item>
      <widget class="GameWidget" name="GameFiels" native="true">
       <property name="enabled">
        <bool>true</bool>
@@ -213,8 +126,6 @@
      </widget>
     </item>
    </layout>
-   <zorder>GameFiels</zorder>
-   <zorder>Menu</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
@@ -229,28 +140,12 @@
     <signal>openLevel()</signal>
     <slot>generateLevel()</slot>
     <slot>getSettings()</slot>
-    <slot>startCompaign()</slot>
+    <slot>startCampaign()</slot>
    </slots>
   </customwidget>
  </customwidgets>
  <resources/>
  <connections>
-  <connection>
-   <sender>GameFiels</sender>
-   <signal>keyEscapePressed()</signal>
-   <receiver>Menu</receiver>
-   <slot>show()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>61</x>
-     <y>412</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>12</x>
-     <y>78</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>GameFiels</sender>
    <signal>keyEscapePressed()</signal>
@@ -267,85 +162,8 @@
     </hint>
    </hints>
   </connection>
-  <connection>
-   <sender>exit</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>537</x>
-     <y>97</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>397</x>
-     <y>278</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>company</sender>
-   <signal>clicked()</signal>
-   <receiver>Menu</receiver>
-   <slot>hide()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>537</x>
-     <y>39</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>88</x>
-     <y>114</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>gameWithSetting</sender>
-   <signal>clicked()</signal>
-   <receiver>GameFiels</receiver>
-   <slot>getSettings()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>537</x>
-     <y>68</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>323</x>
-     <y>419</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>GameFiels</sender>
-   <signal>openLevel()</signal>
-   <receiver>Menu</receiver>
-   <slot>hide()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>232</x>
-     <y>418</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>252</x>
-     <y>114</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>company</sender>
-   <signal>clicked()</signal>
-   <receiver>GameFiels</receiver>
-   <slot>startCompaign()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>498</x>
-     <y>22</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>201</x>
-     <y>142</y>
-    </hint>
-   </hints>
-  </connection>
  </connections>
+ <slots>
+  <slot>startCampaign()</slot>
+ </slots>
 </ui>

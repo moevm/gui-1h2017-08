@@ -62,9 +62,9 @@ signals:
     void openLevel();
 
 public slots:
-     void startCompaign();
+     void startCampaign(int);
+     void continueCampaign();
      void generateLevel(int h=3, int w=3);
-     void getSettings();
 
      void resizeEvent(QResizeEvent * event);
 };
