@@ -88,6 +88,12 @@ void Level::resizeAll(int blockSize){
             }
         }
     }
+
+    foreach (Monster *m, curr_map->monsters) {
+         QVector2D pos = m->getPosition();
+         m->setPosition(QVector2D(pos.x()*blockSize/block,pos.y()*blockSize/block));
+         m->setR(blockSize/4.0);
+    }
 }
 
 bool Level::createMap(int w, int h, int wallWidth, int wallHeight)
@@ -113,6 +119,7 @@ bool Level::createMap(int w, int h, int wallWidth, int wallHeight)
                 curr_map->addCell(cell);
                  if (!done){
                      this->pl->setPosition(QVector2D(wallWidth*j,wallHeight*i));
+                      this->pl->setR(wallWidth/4.0);
                      done=true;
                  }
             }

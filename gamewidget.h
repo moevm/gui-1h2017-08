@@ -32,6 +32,7 @@ class GameWidget : public QWidget
     Player *player;
     Level *level;
     QVector2D translation = QVector2D(0,0);
+
 public:
     explicit GameWidget(QWidget *parent = 0);
     ~GameWidget();

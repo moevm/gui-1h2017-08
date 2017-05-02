@@ -29,19 +29,21 @@ void GameWidget::generateLevel(int h, int w)
 {
   //  LevelSetting set;
    // set.show();
-
+ // double px =  sqrt((s.width()*s.height())/60.0);
 
    // delete this->level;
+    int px =  (int)sqrt((this->width()*this->height())/60.0);
     this->player = new Player(QVector2D(30,30),25);
-    this->level = new Level(this->player,h,w);
+    this->level = new Level(this->player,h,w,0,px);
     this->show();
 
 
 }
 
 void GameWidget::startCampaign(int num){
+ int px =  (int)sqrt((this->width()*this->height())/60.0);
     this->player = new Player(QVector2D(30,30),25);
-    this->level = new Level(this->player,3,3,num);
+    this->level = new Level(this->player,3,3,num,px);
     this->show();
 }
 void GameWidget::continueCampaign(){
