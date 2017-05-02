@@ -11,6 +11,7 @@
 
 
 
+
 class Monster: public MovingObject
 {
 protected:

@@ -1,5 +1,5 @@
 #include "map.h"
-
+#include "collision.h"
 Map::Map()
 {
 
@@ -24,6 +24,10 @@ void Map::draw(GameWidget *obg, QPainter *p)
         curr_cell->draw(obg, p);
     }
     foreach (Monster *curr_m, this->monsters) {
+        if(outsideWindow(curr_m, obg))
+        {
+            break;
+        }
         curr_m->draw(*&obg, p, obg->getTranslation());
     }
 
