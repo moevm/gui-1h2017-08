@@ -19,6 +19,7 @@ public:
 signals:
 
 public slots:
+  //  void resizeEvent(QResizeEvent * event);
 };
 
 #endif // CAMPAINGNFORM_H

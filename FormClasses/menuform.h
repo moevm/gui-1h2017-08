@@ -18,6 +18,7 @@ public:
 signals:
 
 public slots:
+  //  void resizeEvent(QResizeEvent * event);
 };
 
 #endif // MENUFORM_H
