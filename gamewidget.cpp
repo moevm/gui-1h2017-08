@@ -68,8 +68,11 @@ void GameWidget::paintEvent(QPaintEvent *event)
     //this->raise();
    // this->resize(this->width(), this->height());
 
-    level->draw(this);
-    player->draw(this);
+    //level->draw(this);
+   // player->draw(this);
+    QPainter paint(this);
+    level->draw(this, &paint);
+    player->draw(this, &paint);
     #ifndef QT_NO_DEBUG   // если Отладка, то рисуеются линии отвечающие за определение столкновения объектов. (а NDEBUG не объявлен, я думал это стандартная костанта для всех IDE, а вон оно как)
         this->level->checkCollision(this);
     #endif
@@ -135,7 +138,8 @@ void GameWidget::action()
         if (level->getLevel() < level->getLastLevel() &&  level->getLevel()!=0 ){
             this->player = new Player(QVector2D(30,30),25);
             this->level = new Level(this->player,15,15,level->getLevel()+1);
-            level->draw(this);
+          //  level->draw(this);
+            repaint();
         } else {
             this->player = new Player(QVector2D(30,30),25);
             this->level = new Level(this->player,15,15);
@@ -153,6 +157,7 @@ void GameWidget::resizeEvent(QResizeEvent * event){
     QSize s = event->size();
     double px =  sqrt((s.width()*s.height())/60.0);
     level->resizeAll(px);
-    level->draw(this);
+   // level->draw(this);
+    repaint();
 }
 

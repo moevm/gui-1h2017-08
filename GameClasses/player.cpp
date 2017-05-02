@@ -12,13 +12,13 @@ Player::Player(QVector2D position, float r):
     angle = 0;
     look=QVector2D(1,0);
 }
-void Player::draw(GameWidget *obg)
+void Player::draw(GameWidget *obg, QPainter *p)
 {
-    QPainter pain(obg);
-    pain.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap));
-    pain.setBrush(QBrush(Qt::green, Qt::SolidPattern));
+    QPainter *pain=(p);
+   // pain->setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap));
+   // pain->setBrush(QBrush(Qt::green, Qt::SolidPattern));
 
-   // pain.drawEllipse(QRectF(this->position.x() + obg->getTranslation().x(), this->position.y() + obg->getTranslation().y(), this->R*2,  this->R*2));
+    //pain->drawEllipse(QRectF(this->position.x() + obg->getTranslation().x(), this->position.y() + obg->getTranslation().y(), this->R*2,  this->R*2));
 
 
     float x = this->position.x() + obg->getTranslation().x();
@@ -30,22 +30,24 @@ void Player::draw(GameWidget *obg)
         QPixmap rotatePixmap(pic.size());
         rotatePixmap.fill(Qt::transparent);
 
-        QPainter p(&rotatePixmap);
-        pain.setRenderHint(QPainter::Antialiasing); // сглаживание
-        pain.setRenderHint(QPainter::SmoothPixmapTransform);
-        pain.setRenderHint(QPainter::HighQualityAntialiasing);
-        pain.translate(x+this->R , y+this->R );
-        pain.rotate(angle); // градус
+        //QPainter p(&rotatePixmap);
+        pain->setRenderHint(QPainter::Antialiasing); // сглаживание
+        pain->setRenderHint(QPainter::SmoothPixmapTransform);
+        pain->setRenderHint(QPainter::HighQualityAntialiasing);
+        pain->translate(x+this->R , y+this->R );
+        pain->rotate(angle); // градус
 
-      // pain.setViewport(0,0,500,300);
-      //  pain.setWindow(QRect(0,0,1000,600));
-        pain.drawPixmap(QRect(QPoint(0-R,0-R),QSize(d, d)),pic);
-        pain.translate(-(x+this->R) , -(y+this->R) );
-        pain.end();
-        pic = rotatePixmap;
+      // pain->setViewport(0,0,500,300);
+      //  pain->setWindow(QRect(0,0,1000,600));
+        pain->drawPixmap(QRect(QPoint(0-R,0-R),QSize(d, d)),pic);
+        pain->rotate(-angle);
+        pain->translate(-(x+this->R) , -(y+this->R) );
+
+       // pain->end();
+
 
     #ifndef QT_NO_DEBUG
-        pain.drawText(QRect(QPoint(0,0),QSize(100, 100)),
+        pain->drawText(QRect(QPoint(0,0),QSize(100, 100)),
                   "x: " + QString().setNum((direction).x()) + '\n' +
                   "y: " + QString().setNum((direction).y()) + '\n' +
                   "angle: " + QString().setNum(angle));

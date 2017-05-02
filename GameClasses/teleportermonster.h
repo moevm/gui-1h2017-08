@@ -13,7 +13,7 @@ public:
     TeleporterMonster(QVector2D position, float r=25);
 
     void move();
-    void draw(QWidget *ob, QVector2D tr);
+    void draw(QWidget *obg, QPainter *p,QVector2D tr);
     void interact(RoundCollision *pl, QVector<RectangleCollision*> cells);
 
 };

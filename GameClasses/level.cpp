@@ -62,21 +62,30 @@ void Level::resizeAll(int blockSize){
 
     int wallWidth = blockSize;
     int wallHeight = blockSize;
-    curr_map = new Map();
+    //curr_map = new Map();  // Пусть останется как напоминание.
     bool done = false;
     int mazeHeight = h;
     int mazeWidth = w;
+    int count_of_wall=0;
+    int count_of_cell=0;
     for (int i=0; i<mazeWidth; i++){
         for (int j=0; j<mazeHeight; j++){
             if(Maze::WALL == map[i][j])
             {
-                curr_map->addWall(Wall(QVector2D(wallWidth*j,wallHeight*i), wallWidth,wallHeight));
+                Wall *m = curr_map->walls.at(count_of_wall);
+                m->setPosition(QVector2D(wallWidth*j,wallHeight*i));
+                m->setWidth(wallWidth);
+                m->setHeight(wallHeight);
+                count_of_wall++;
             }
             if(Maze::VISITED == map[i][j] )
             {
-                Wall cell = (Wall(QVector2D(wallWidth*j,wallHeight*i), wallWidth,wallHeight));
-                cell.setPath(QString(":/img/img/cell.png"));
-                curr_map->addCell(cell);
+                Wall *c = curr_map->cells.at(count_of_cell);
+                c->setPosition(QVector2D(wallWidth*j,wallHeight*i));
+                c->setWidth(wallWidth);
+                c->setHeight(wallHeight);
+                count_of_cell++;
+
                  if (!done){
                      QVector2D pos = this->pl->getPosition();
 
@@ -88,7 +97,6 @@ void Level::resizeAll(int blockSize){
             }
         }
     }
-
     foreach (Monster *m, curr_map->monsters) {
          QVector2D pos = m->getPosition();
          m->setPosition(QVector2D(pos.x()*blockSize/block,pos.y()*blockSize/block));
@@ -127,18 +135,18 @@ bool Level::createMap(int w, int h, int wallWidth, int wallHeight)
     }
 }
 
-void Level::draw(GameWidget *obg)
+void Level::draw(GameWidget *obg, QPainter *p)
 {
-    curr_map->draw(obg);
+    curr_map->draw(obg,p);
 }
 
 void Level::checkCollision(GameWidget *paint)
 {
     QVector2D save = QVector2D(0,0);
-    foreach (Wall curr_wall, curr_map->walls) {
-        save +=collisionCircleAndRectangle(&curr_wall, this->pl, paint);
+    foreach (Wall *curr_wall, curr_map->walls) {
+        save +=collisionCircleAndRectangle(curr_wall, this->pl, paint);
     }
-    Wall * rect =  &this->curr_map->cells[this->curr_map->cells.length()-1];
+    Wall * rect =  this->curr_map->cells[this->curr_map->cells.length()-1];
     if(collisionPointAndRectangle(new QVector2D(this->pl->getCentr()),//&*(this->curr_map->cells.end()),
                                   rect,
                                   paint))
@@ -157,8 +165,8 @@ void Level::checkCollision(GameWidget *paint)
             monsterForse +=(-this->pl->getCentr() + curr_m->getCentr()).normalized()*curr_m->getSpeed();
             //curr_m->setForce((-this->pl->getCentr() + curr_m->getCentr())/2);
         }
-        foreach (Wall curr_wall, curr_map->walls) {
-            monsterForse +=collisionCircleAndRectangle(&curr_wall, curr_m, paint);
+        foreach (Wall *curr_wall, curr_map->walls) {
+            monsterForse +=collisionCircleAndRectangle(curr_wall, curr_m, paint);
         }
         foreach (Monster *curr_m_next, this->getCurr_map()->monsters) {
             if(curr_m_next != curr_m)

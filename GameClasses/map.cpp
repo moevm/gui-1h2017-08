@@ -7,24 +7,24 @@ Map::Map()
 
 void Map::addWall(Wall w)
 {
-    walls.push_back(w);
+    walls.push_back(new Wall(w));
 }
 
 void Map::addCell(Wall c)
 {
-    cells.push_back(c);
+    cells.push_back(new Wall(c));
 }
 
-void Map::draw(GameWidget *obg)
+void Map::draw(GameWidget *obg, QPainter *p)
 {
-    foreach (Wall curr_wall, this->walls) {
-        curr_wall.draw(obg);
+    foreach (Wall *curr_wall, this->walls) {
+        curr_wall->draw(obg, p);
     }
-    foreach (Wall curr_cell, this->cells) {
-        curr_cell.draw(obg);
+    foreach (Wall *curr_cell, this->cells) {
+        curr_cell->draw(obg, p);
     }
     foreach (Monster *curr_m, this->monsters) {
-        curr_m->draw(obg, obg->getTranslation());
+        curr_m->draw(*&obg, p, obg->getTranslation());
     }
 
 }
@@ -39,7 +39,7 @@ void Map::genMonsters(){
 
     for (int i = 0; i<amount; i++){
         int targetCell =  rand() % (cells.length()-1);
-        TeleporterMonster *t = new TeleporterMonster(cells[targetCell].getPosition());
+        TeleporterMonster *t = new TeleporterMonster(cells[targetCell]->getPosition());
         addMonster(t);
     }
 }

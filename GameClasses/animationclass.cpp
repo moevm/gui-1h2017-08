@@ -1,7 +1,6 @@
 #include "animationclass.h"
 #include <QtMath>
 
-
 AnimationClass::AnimationClass(QString w, unsigned int count_of_frames)
 {
     time_on_frame=5;

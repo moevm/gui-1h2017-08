@@ -23,7 +23,7 @@ public:
     int getLevel();
     Level(Player * pl, int mazeWidth=5, int mazeHeight=7, int stage = 0, int blockSize=100);
     ~Level();
-    void draw(GameWidget *obg);
+    void draw(GameWidget *obg, QPainter *p);
     void checkCollision(GameWidget *paint);
     Map *getCurr_map();
     bool getFinised() const;

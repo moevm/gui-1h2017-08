@@ -11,15 +11,15 @@ class Map
 {
 
 public:
-    QVector <Wall> walls;
-    QVector <Wall> cells;
+    QVector <Wall*> walls;
+    QVector <Wall*> cells;
     QVector <Monster*> monsters;
     Map();
     ~Map();
     void addWall(Wall w);
     void addCell(Wall c);
     void addMonster(Monster* m);
-    void draw(GameWidget *obg);
+    void draw(GameWidget *obg, QPainter *p);
     void genMonsters();
 };
 

@@ -19,7 +19,7 @@ class Player : public MovingObject// public RoundCollision
 
 public:
     Player(QVector2D position, float R=0);
-    void draw(GameWidget *obg);
+    void draw(GameWidget *obg, QPainter *p);
    /* void action();
     void moveTo(QVector2D toPoint);
     void stop();

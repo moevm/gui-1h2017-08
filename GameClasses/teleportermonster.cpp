@@ -20,10 +20,11 @@ void TeleporterMonster::move(){
 
 }
 
-void TeleporterMonster::draw(QWidget *obg, QVector2D tr){
-    QPainter pain(obg);
-    pain.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap));
-    pain.setBrush(QBrush(Qt::green, Qt::SolidPattern));
+void TeleporterMonster::draw(QWidget *obg, QPainter *p,QVector2D tr)
+{
+    QPainter *pain = (p);
+    pain->setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap));
+    pain->setBrush(QBrush(Qt::green, Qt::SolidPattern));
 
     //pain.drawEllipse(QRectF(this->position.x() + tr.x(), this->position.y() + tr.y(), this->R*2,  this->R*2));
 
@@ -34,21 +35,24 @@ void TeleporterMonster::draw(QWidget *obg, QVector2D tr){
 
     //QPixmap pic = QPixmap (*this->path);
     QPixmap pic = QPixmap(this->getCurrFrame());
-        QPixmap rotatePixmap(pic.size());
-        rotatePixmap.fill(Qt::transparent);
+        //QPixmap rotatePixmap(pic.size());
+        //rotatePixmap.fill(Qt::transparent);
 
-        QPainter p(&rotatePixmap);
-        pain.setRenderHint(QPainter::Antialiasing); // сглаживание
-        pain.setRenderHint(QPainter::SmoothPixmapTransform);
-        pain.setRenderHint(QPainter::HighQualityAntialiasing);
-        pain.translate(x+this->R , y+this->R );
-        pain.rotate(0-45); // градус
+        //QPainter p(&rotatePixmap);
+        //pain->setRenderHint(QPainter::Antialiasing); // сглаживание
+        //pain->setRenderHint(QPainter::SmoothPixmapTransform);
+        //pain->setRenderHint(QPainter::HighQualityAntialiasing);
+          pain->translate(x+this->R , y+this->R );
+          pain->rotate(0-45); // градус
 
+       // pic = rotatePixmap;
       // pain.setViewport(0,0,500,300);
       //  pain.setWindow(QRect(0,0,1000,600));
-        pain.drawPixmap(QRect(QPoint(0-R,0-R),QSize(d, d)),pic);
-        pain.translate(-(x+this->R) , -(y+this->R) );
-        pain.end();
-        pic = rotatePixmap;
+          pain->drawPixmap(QRect(QPoint(0-R,0-R),QSize(d, d)),pic);
+          pain->rotate(0+45);
+          pain->translate(-(x+this->R) , -(y+this->R) );
+
+      //  pain->end();
+
 
 }
