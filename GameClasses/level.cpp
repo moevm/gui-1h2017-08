@@ -92,7 +92,7 @@ void Level::resizeAll(int blockSize){
                      this->pl->setPosition(QVector2D(pos.x()*blockSize/block,pos.y()*blockSize/block));
                      this->pl->setR(blockSize/4.0);
                      done=true;
-                     block = blockSize;
+
                  }
             }
         }
@@ -102,6 +102,7 @@ void Level::resizeAll(int blockSize){
          m->setPosition(QVector2D(pos.x()*blockSize/block,pos.y()*blockSize/block));
          m->setR(blockSize/4.0);
     }
+    block = blockSize;
 }
 
 bool Level::createMap(int w, int h, int wallWidth, int wallHeight)
