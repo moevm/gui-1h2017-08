@@ -141,6 +141,48 @@ bool Level::createMap(int w, int h, int wallWidth, int wallHeight)
     }
 }
 
+QVector2D Level::wayToPlayer(QVector2D p) const
+{
+    return (p - this->pl->getCentr());
+}
+
+void Level::action()
+{
+    float vision= this->pl->getR() * 10;
+    foreach (TeleporterMonster *curr_m, this->curr_map->monsters) {
+        curr_m->action();
+        if(this->wayToPlayer((curr_m->getCentr())).length() < vision &&
+           this->wayToPlayer((curr_m->getCentr())).length() > vision*0.4  )
+        {
+            //curr_m->setDirection(-this->wayToPlayer(curr_m->getCentr()));
+            curr_m->moveTo(this->pl->getCentr());
+        }
+        else curr_m->stop();
+        if(this->wayToPlayer((curr_m->getCentr())).length() < vision*0.6)
+        {
+            curr_m->castSpellTelleport(pl, this->curr_map);
+        }
+    }
+    foreach (Teleport *curr_t, this->curr_map->teleports) {
+        if(this->wayToPlayer((curr_t->getCentr())).length() < curr_t->getR()*1.5 &&   // для игрока
+           curr_t->isReady()  )
+        {
+            curr_t->interact(this->pl, this->curr_map->cells);
+        }
+        foreach (MovingObject *curr_m, this->curr_map->monsters) {                  // для монстров
+            if(((curr_m->getCentr() - curr_t->getCentr())).length() < curr_t->getR()*1.5 &&
+               curr_t->isReady()  )
+            {
+                curr_t->interact(curr_m, this->curr_map->cells);
+            }
+        }
+        if(curr_t->isReady())
+        {
+            this->curr_map->teleports.remove(this->curr_map->teleports.lastIndexOf(curr_t));
+        }
+    }
+}
+
 void Level::draw(GameWidget *obg, QPainter *p)
 {
     curr_map->draw(obg,p);

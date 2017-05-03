@@ -43,7 +43,8 @@ SOURCES += main.cpp\
     FormClasses/menuform.cpp \
     FormClasses/generateform.cpp \
     GameClasses/movingobject.cpp \
-    GameClasses/animationclass.cpp
+    GameClasses/animationclass.cpp \
+    GameClasses/teleport.cpp
     GameClasses/math_function.cpp
 
 HEADERS  += mainwindow.h \
@@ -65,7 +66,8 @@ HEADERS  += mainwindow.h \
     FormClasses/menuform.h \
     FormClasses/generateform.h \
     GameClasses/movingobject.h \
-    GameClasses/animationclass.h
+    GameClasses/animationclass.h \
+    GameClasses/teleport.h
     GameClasses/math_function.h
 
 FORMS    += mainwindow.ui \

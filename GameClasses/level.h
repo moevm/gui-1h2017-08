@@ -29,6 +29,10 @@ public:
     bool getFinised() const;
     void resizeAll(int blockSize);
     bool createMap(int w, int h, int wallWidth, int wallHeight);
+    QVector2D wayToPlayer(QVector2D p) const;
+
+    void action();
+
 
 
 };

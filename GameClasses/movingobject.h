@@ -10,8 +10,8 @@ class MovingObject: public RoundCollision
 protected:
     QVector2D direction;
     QVector2D force;
-    float speed = 5;
-    const float maxSpeed = 10;
+    float speed = 3;
+    float maxSpeed = 10;
     float angle;
     QVector2D look;
 public:
@@ -25,6 +25,7 @@ public:
     QVector2D getForce() const;
     void setForce(const QVector2D &value);
     float getSpeed() const;
+    void setMaxSpeed(float value);
 };
 
 #endif // MOVINGOBJECT_H

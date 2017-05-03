@@ -130,6 +130,7 @@ void GameWidget::action()
 {
 
     player->action();
+    level->action();
     foreach (Monster *curr_m, this->level->getCurr_map()->monsters) {
         curr_m->action();
     }

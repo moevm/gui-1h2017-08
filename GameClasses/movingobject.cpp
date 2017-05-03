@@ -8,6 +8,11 @@ float MovingObject::getSpeed() const
     return speed;
 }
 
+void MovingObject::setMaxSpeed(float value)
+{
+    maxSpeed = value;
+}
+
 MovingObject::MovingObject(QVector2D position, float r):
     RoundCollision(position,r)
 {

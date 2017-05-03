@@ -4,8 +4,11 @@
 #include "wall.h"
 #include "monster.h"
 #include "teleportermonster.h"
-class Monster;
+#include "teleport.h"
+
+class TeleporterMonster;
 class Wall;
+class Teleport;
 
 class Map
 {
@@ -13,12 +16,14 @@ class Map
 public:
     QVector <Wall*> walls;
     QVector <Wall*> cells;
-    QVector <Monster*> monsters;
+    QVector <TeleporterMonster*> monsters;
+    QVector <Teleport*> teleports;
     Map();
     ~Map();
     void addWall(Wall w);
     void addCell(Wall c);
-    void addMonster(Monster* m);
+    void addTeleportMonster(TeleporterMonster* m);
+    void addTeleport(Teleport w);
     void draw(GameWidget *obg, QPainter *p);
     void genMonsters(int blockSize);
 };

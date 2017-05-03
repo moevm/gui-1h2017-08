@@ -16,4 +16,13 @@
         <file>t07.png</file>
     </qresource>
     <qresource prefix="/"/>
+    <qresource prefix="/img/teleport">
+        <file>p01.png</file>
+        <file>p02.png</file>
+        <file>p03.png</file>
+        <file>p04.png</file>
+        <file>p05.png</file>
+        <file>p06.png</file>
+        <file>p07.png</file>
+    </qresource>
 </RCC>
