@@ -257,23 +257,25 @@ bool collisionCircleAndCircle(RoundCollision *c1, RoundCollision *c2, GameWidget
 }
 bool outsideWindow(RoundCollision *circl, GameWidget * paint)
 {
-    if( paint->size().width() -paint->getTranslation().x() < circl->getPosition().x())
+
+    if( paint->size().width() - paint->getTranslation().x() < circl->getPosition().x())
     {
         return true;
     }
-    if(0  -paint->getTranslation().x()> circl->getPosition().x() + circl->getR()*2)
+    if(0 - paint->getTranslation().x() > circl->getPosition().x() + circl->getR()*2)
     {
         return true;
     }
 
-    if(paint->size().height() -paint->getTranslation().y() < circl->getPosition().y())
+    if(paint->size().height() - paint->getTranslation().y() < circl->getPosition().y())
     {
         return true;
     }
-    if(0  -paint->getTranslation().y()> circl->getPosition().y() + circl->getR()*2)
+    if(0 - paint->getTranslation().y() > circl->getPosition().y() + circl->getR()*2)
     {
         return true;
     }
+    return false;
 }
 bool outsideWindow(RectangleCollision *rect, GameWidget * paint)
 {
@@ -294,4 +296,5 @@ bool outsideWindow(RectangleCollision *rect, GameWidget * paint)
     {
         return true;
     }
+    return false;
 }

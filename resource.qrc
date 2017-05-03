@@ -15,7 +15,5 @@
         <file>t06.png</file>
         <file>t07.png</file>
     </qresource>
-    <qresource prefix="/">
-        <file>sound/theme.mp3</file>
-    </qresource>
+    <qresource prefix="/"/>
 </RCC>

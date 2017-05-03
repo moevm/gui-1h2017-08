@@ -1,5 +1,8 @@
 #include "map.h"
 #include "collision.h"
+#include <iostream>
+
+using namespace std;
 Map::Map()
 {
 
@@ -24,10 +27,14 @@ void Map::draw(GameWidget *obg, QPainter *p)
         curr_cell->draw(obg, p);
     }
     foreach (Monster *curr_m, this->monsters) {
+        //cout << "Window: x -" << obg->getTranslation().x() << ", y -" << obg->getTranslation().x() << endl;
+        //cout << "Window: w -" << obg->size().width() << ", h -" << obg->size().height() << endl;
         if(outsideWindow(curr_m, obg))
         {
-            break;
+            //cout << "Not draw: " << curr_m->getPosition().x() << ", " << curr_m->getPosition().y() << endl;
+            continue;
         }
+        //cout << "Draw: " << curr_m->getPosition().x() << ", " << curr_m->getPosition().y() << endl;
         curr_m->draw(*&obg, p, obg->getTranslation());
     }
 
