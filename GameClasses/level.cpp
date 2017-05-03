@@ -116,15 +116,21 @@ bool Level::createMap(int w, int h, int wallWidth, int wallHeight)
 
     for (int i=0; i<w; i++){
         for (int j=0; j<h; j++){
-            if(Maze::WALL == map[i][j])
-            {
-                curr_map->addWall(Wall(QVector2D(wallWidth*j,wallHeight*i), wallWidth,wallHeight));
+            if(Maze::WALL == map[i][j]){
+             Wall wal = Wall(QVector2D(wallWidth*j,wallHeight*i), wallWidth,wallHeight);
+                if (i==w-2 && j==h-1){
+
+                     wal.setPath(QString(":/img/img/exit.png"));
+                     curr_map->addWall(wal);
+                } else {
+                curr_map->addWall(wal);
+                }
             }
-            if(Maze::VISITED == map[i][j] )
-            {
+                if(Maze::VISITED == map[i][j] ){
                 Wall cell = (Wall(QVector2D(wallWidth*j,wallHeight*i), wallWidth,wallHeight));
-                cell.setPath(QString(":/img/img/cell.png"));
-                curr_map->addCell(cell);
+
+                    cell.setPath(QString(":/img/img/cell.png"));
+                    curr_map->addCell(cell);
                  if (!done){
                      this->pl->setPosition(QVector2D(wallWidth*j,wallHeight*i));
                       this->pl->setR(wallWidth/4.0);

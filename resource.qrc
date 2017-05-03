@@ -4,6 +4,7 @@
         <file>img/wall.png</file>
         <file>img/player.png</file>
         <file>img/cell01.png</file>
+        <file>img/exit.png</file>
     </qresource>
     <qresource prefix="/img/teleportMonsterSprites">
         <file>t01.png</file>
@@ -13,5 +14,8 @@
         <file>t05.png</file>
         <file>t06.png</file>
         <file>t07.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>sound/theme.mp3</file>
     </qresource>
 </RCC>

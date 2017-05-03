@@ -3,6 +3,9 @@
 #include "ui_campaign.h"
 #include "ui_generatelevel.h"
 #include "ui_menu.h"
+#include <QMediaPlayer>
+#include <QDir>
+#include <QUrl>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -14,6 +17,12 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setGeometry(100,100,1000,600);
 
     initParameters();
+
+  /*  QMediaPlayer  *player = new QMediaPlayer();
+    player->setMedia(QUrl::fromLocalFile("/sound/theme.mp3"));
+    player->setVolume(50);
+    player->play();
+    */
 }
 void MainWindow::initParameters()
 {
