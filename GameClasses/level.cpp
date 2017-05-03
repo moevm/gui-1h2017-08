@@ -49,7 +49,7 @@ Level::Level(Player *pl, int mazeWidth, int mazeHeight, int stage, int blockSize
     this->createMap(w,h,blockSize,blockSize);
 
 
-    curr_map->genMonsters();
+    curr_map->genMonsters(blockSize);
 
 }
 
@@ -64,12 +64,11 @@ void Level::resizeAll(int blockSize){
     int wallHeight = blockSize;
     //curr_map = new Map();  // Пусть останется как напоминание.
     bool done = false;
-    int mazeHeight = h;
-    int mazeWidth = w;
+
     int count_of_wall=0;
     int count_of_cell=0;
-    for (int i=0; i<mazeWidth; i++){
-        for (int j=0; j<mazeHeight; j++){
+    for (int i=0; i<w; i++){
+        for (int j=0; j<h; j++){
             if(Maze::WALL == map[i][j])
             {
                 Wall *m = curr_map->walls.at(count_of_wall);

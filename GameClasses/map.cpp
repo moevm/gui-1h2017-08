@@ -37,13 +37,13 @@ void Map::addMonster(Monster *m)
    monsters.push_back(m);
 }
 
-void Map::genMonsters(){
+void Map::genMonsters(int blockSize){
     if (cells.size()<30 || !monsters.empty()) return;
     int amount = cells.size()/30;
 
     for (int i = 0; i<amount; i++){
         int targetCell =  rand() % (cells.length()-1);
-        TeleporterMonster *t = new TeleporterMonster(cells[targetCell]->getPosition());
+        TeleporterMonster *t = new TeleporterMonster(cells[targetCell]->getPosition(), blockSize/4.0);
         addMonster(t);
     }
 }

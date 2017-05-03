@@ -20,7 +20,7 @@ public:
     void addCell(Wall c);
     void addMonster(Monster* m);
     void draw(GameWidget *obg, QPainter *p);
-    void genMonsters();
+    void genMonsters(int blockSize);
 };
 
 #endif // MAP_H
