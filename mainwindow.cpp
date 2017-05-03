@@ -123,7 +123,8 @@ void MainWindow::generatorStart()
 {
     generateForm->hide();
     this->gameStarted = true;
-    emit generateLevel(generateForm->ui->width->value(),generateForm->ui->higth->value());
+    emit generateLevel(generateForm->ui->width->value()%2 != 0? generateForm->ui->width->value(): generateForm->ui->width->value()+1,
+                       generateForm->ui->higth->value()%2 != 0? generateForm->ui->higth->value(): generateForm->ui->higth->value()+1);
 }
 
 void MainWindow::startLevel1()

@@ -4,6 +4,7 @@
  Maze::Maze(int width, int height, bool braids, bool rooms, int roomNum){
     this->width = width;
     this->height=height;
+
     maze = new int *[width];
 
        for (int i = 0; i < width; i++) {
