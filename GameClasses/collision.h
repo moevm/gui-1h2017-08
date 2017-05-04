@@ -6,6 +6,7 @@
 #include "gamewidget.h"
 #include "rectanglecollision.h"
 #include "roundcollision.h"
+#include "wall.h"
 
 
 QVector2D collisionCircleAndRectangle( RectangleCollision * rect, RoundCollision *circle, GameWidget * paint);

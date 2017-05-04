@@ -159,6 +159,6 @@ void GameWidget::resizeEvent(QResizeEvent * event){
     double px =  sqrt((s.width()*s.height())/60.0);
     level->resizeAll(px);
    // level->draw(this);
-    repaint();
+    //repaint();
 }
 

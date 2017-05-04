@@ -8,10 +8,10 @@ Map::Map()
 
 }
 
-void Map::addWall(Wall w)
+/*void Map::addWall(Wall w)
 {
     walls.push_back(new Wall(w));
-}
+}*/
 
 void Map::addTeleport(Teleport w)
 {
@@ -28,6 +28,7 @@ void Map::draw(GameWidget *obg, QPainter *p)
     foreach (Wall *curr_cell, this->cells) {
         curr_cell->draw(obg, p);
     }
+
     foreach (Teleport *curr_teleport, this->teleports) {
         curr_teleport->action();
         if(outsideWindow(curr_teleport, obg))
@@ -47,8 +48,15 @@ void Map::draw(GameWidget *obg, QPainter *p)
         //cout << "Draw: " << curr_m->getPosition().x() << ", " << curr_m->getPosition().y() << endl;
         curr_m->draw(obg, p, obg->getTranslation());
     }
-    foreach (Wall *curr_wall, this->walls) {
+    /*foreach (Wall *curr_wall, this->walls) {
         curr_wall->draw(obg, p);
+    }*/
+    foreach (QVector <Wall*> curr_walls, this->walls)
+    {
+        foreach (Wall *curr_wall, curr_walls)
+        {
+            curr_wall->draw(obg, p);
+        }
     }
 
 }
@@ -60,7 +68,7 @@ void Map::addTeleportMonster(TeleporterMonster *m)
 void Map::genMonsters(int blockSize){
     if (cells.size()<50 || !monsters.empty()) return;
     int amount = cells.size()/50;
-    if(amount > 40) amount =40;
+    //if(amount > 40) amount =40;
 
     for (int i = 0; i<amount; i++){
         int targetCell =  rand() % (cells.length()-1);

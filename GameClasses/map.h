@@ -14,13 +14,15 @@ class Map
 {
 
 public:
-    QVector <Wall*> walls;
+    //QVector <Wall*> walls;
+    QVector <QVector <Wall*>> walls;
+
     QVector <Wall*> cells;
     QVector <TeleporterMonster*> monsters;
     QVector <Teleport*> teleports;
     Map();
     ~Map();
-    void addWall(Wall w);
+   // void addWall(Wall w);
     void addCell(Wall c);
     void addTeleportMonster(TeleporterMonster* m);
     void addTeleport(Teleport w);

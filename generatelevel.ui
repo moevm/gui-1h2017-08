@@ -113,10 +113,10 @@
            <number>5</number>
           </property>
           <property name="maximum">
-           <number>999</number>
+           <number>99</number>
           </property>
           <property name="singleStep">
-           <number>2</number>
+           <number>1</number>
           </property>
          </widget>
         </item>
@@ -152,10 +152,10 @@
            <number>5</number>
           </property>
           <property name="maximum">
-           <number>999</number>
+           <number>1000</number>
           </property>
           <property name="singleStep">
-           <number>2</number>
+           <number>1</number>
           </property>
          </widget>
         </item>

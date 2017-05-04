@@ -68,10 +68,11 @@ void Level::resizeAll(int blockSize){
     int count_of_wall=0;
     int count_of_cell=0;
     for (int i=0; i<w; i++){
+        count_of_wall=0;
         for (int j=0; j<h; j++){
             if(Maze::WALL == map[i][j])
             {
-                Wall *m = curr_map->walls.at(count_of_wall);
+                Wall *m = curr_map->walls.at(i).at(count_of_wall);
                 m->setPosition(QVector2D(wallWidth*j,wallHeight*i));
                 m->setWidth(wallWidth);
                 m->setHeight(wallHeight);
@@ -115,15 +116,17 @@ bool Level::createMap(int w, int h, int wallWidth, int wallHeight)
     bool done = false;
 
     for (int i=0; i<w; i++){
-        for (int j=0; j<h; j++){
+        QVector<Wall*> curr_walls;
+        for (int j=0; j<h; j++)
+        {
             if(Maze::WALL == map[i][j]){
              Wall wal = Wall(QVector2D(wallWidth*j,wallHeight*i), wallWidth,wallHeight);
                 if (i==w-2 && j==h-1){
 
                      wal.setPath(QString(":/img/img/exit.png"));
-                     curr_map->addWall(wal);
+                     curr_walls.push_back(new Wall(wal));
                 } else {
-                curr_map->addWall(wal);
+                curr_walls.push_back(new Wall(wal));
                 }
             }
                 if(Maze::VISITED == map[i][j] ){
@@ -138,6 +141,7 @@ bool Level::createMap(int w, int h, int wallWidth, int wallHeight)
                  }
             }
         }
+        this->curr_map->walls.push_back(curr_walls);
     }
 }
 
@@ -188,12 +192,112 @@ void Level::draw(GameWidget *obg, QPainter *p)
     curr_map->draw(obg,p);
 }
 
+// позволяет увелчить скорость просчёта коллизий за счёт того, что проверяются не все стены, а только "находящиеся рядом":
+QVector2D Level::checkroundCollisionWithVectorOfWall(RoundCollision * circle, GameWidget *paint)
+{
+    QVector2D save = QVector2D(0,0);
+    float h = curr_map->walls.at(0).at(0)->getHeight();
+    float from_y = 0;
+    float to_y = 0;
+    if(curr_map->walls.size() < 10)
+    {
+        from_y = circle->getPosition().y() / h -1;
+        to_y = from_y+2;
+    }else
+    {
+        from_y = 0;
+        to_y = curr_map->walls.size()-1;
+    }
+    for (int i=from_y; i<=to_y; i++){
+        float from_x = 0;
+        float to_x = curr_map->walls.at(i).size()-1;
+        while(true)
+        {
+            if(to_x - from_x < 4)
+                break;
+            float midle_elem = (from_x + to_x)/2;
+            if(curr_map->walls.at(i).at(midle_elem)->getPosition().x() < circle->getPosition().x())
+            {
+                from_x = midle_elem;
+            }
+            else
+            {
+                to_x = midle_elem;
+            }
+        }
+        for (int j=from_x; j<=to_x; j++){
+             save +=collisionCircleAndRectangle(curr_map->walls.at(i).at(j), circle, paint);
+        }
+
+    }
+    return save;
+}
+
 void Level::checkCollision(GameWidget *paint)
 {
     QVector2D save = QVector2D(0,0);
-    foreach (Wall *curr_wall, curr_map->walls) {
+    /*foreach (Wall *curr_wall, curr_map->walls) {
         save +=collisionCircleAndRectangle(curr_wall, this->pl, paint);
+    }*/
+
+    save += checkroundCollisionWithVectorOfWall(pl, paint);
+    /*float w = curr_map->walls.at(0).at(0)->getWidth();
+    float h = curr_map->walls.at(0).at(0)->getHeight();
+    float from_y = 0;
+    float to_y = 0;
+    if(curr_map->walls.size() < 10)
+    {
+        from_y = this->pl->getPosition().y() / h -1;
+        to_y = from_y+2;
+    }else
+    {
+        from_y = 0;
+        to_y = curr_map->walls.size()-1;
     }
+
+    for (int i=from_y; i<=to_y; i++){
+        float from_x = 0;
+        float to_x = curr_map->walls.at(i).size()-1;
+        while(true)
+        {
+            if(to_x - from_x < 4)
+                break;
+            float midle_elem = (from_x + to_x)/2;
+            if(curr_map->walls.at(i).at(midle_elem)->getPosition().x() < this->pl->getPosition().x())
+            {
+                from_x = midle_elem;
+            }
+            else
+            {
+                to_x = midle_elem;
+            }
+        }
+        for (int j=from_x; j<=to_x; j++){
+             save +=collisionCircleAndRectangle(curr_map->walls.at(i).at(j), this->pl, paint);
+        }
+    }*/
+    /*foreach (QVector <Wall*> curr_walls, curr_map->walls)
+    {
+        float save_distance =1000000;
+        float curr_distance =1000000;
+        for( int i=0; i< curr_walls.size(); i++)
+        {
+
+        }
+        foreach (Wall *curr_wall, curr_walls)
+        {
+            save +=collisionCircleAndRectangle(curr_wall, this->pl, paint);
+            curr_distance = (this->pl->getPosition() - curr_wall->getPosition()).length();
+            if(curr_distance > save_distance)
+            {
+                break;
+            }
+            else
+            {
+                save_distance = curr_distance;
+            }
+        }
+    }*/
     Wall * rect =  this->curr_map->cells[this->curr_map->cells.length()-1];
     if(collisionPointAndRectangle(new QVector2D(this->pl->getCentr()),//&*(this->curr_map->cells.end()),
                                   rect,
@@ -213,9 +317,17 @@ void Level::checkCollision(GameWidget *paint)
             monsterForse +=(-this->pl->getCentr() + curr_m->getCentr()).normalized()*curr_m->getSpeed();
             //curr_m->setForce((-this->pl->getCentr() + curr_m->getCentr())/2);
         }
-        foreach (Wall *curr_wall, curr_map->walls) {
+       /* foreach (Wall *curr_wall, curr_map->walls) {
             monsterForse +=collisionCircleAndRectangle(curr_wall, curr_m, paint);
-        }
+        }*/
+        monsterForse += checkroundCollisionWithVectorOfWall(curr_m, paint);
+        /*foreach (QVector <Wall*> walls, curr_map->walls)
+        {
+            foreach (Wall *curr_wall, walls)
+            {
+                monsterForse +=collisionCircleAndRectangle(curr_wall, curr_m, paint);
+            }
+        }*/
         foreach (Monster *curr_m_next, this->getCurr_map()->monsters) {
             if(curr_m_next != curr_m)
             {

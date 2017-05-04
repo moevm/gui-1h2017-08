@@ -25,6 +25,8 @@ public:
     ~Level();
     void draw(GameWidget *obg, QPainter *p);
     void checkCollision(GameWidget *paint);
+    QVector2D checkroundCollisionWithVectorOfWall(RoundCollision * circle, GameWidget *paint);
+
     Map *getCurr_map();
     bool getFinised() const;
     void resizeAll(int blockSize);

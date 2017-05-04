@@ -298,3 +298,6 @@ bool outsideWindow(RectangleCollision *rect, GameWidget * paint)
     }
     return false;
 }
+
+
+
