@@ -39,6 +39,13 @@ void MainWindow::initParameters()
     QObject::connect(cForm->ui->level1, SIGNAL(pressed()), this, SLOT(startLevel1()));
     QObject::connect(cForm->ui->level2, SIGNAL(pressed()), this, SLOT(startLevel2()));
     QObject::connect(cForm->ui->level3, SIGNAL(pressed()), this, SLOT(startLevel3()));
+    QObject::connect(cForm->ui->level4, SIGNAL(pressed()), this, SLOT(startLevel4()));
+    QObject::connect(cForm->ui->level5, SIGNAL(pressed()), this, SLOT(startLevel5()));
+    QObject::connect(cForm->ui->level6, SIGNAL(pressed()), this, SLOT(startLevel6()));
+    QObject::connect(cForm->ui->level7, SIGNAL(pressed()), this, SLOT(startLevel7()));
+    QObject::connect(cForm->ui->level8, SIGNAL(pressed()), this, SLOT(startLevel8()));
+    QObject::connect(cForm->ui->level9, SIGNAL(pressed()), this, SLOT(startLevel9()));
+    QObject::connect(cForm->ui->level10, SIGNAL(pressed()), this, SLOT(startLevel10()));
     cForm->hide();
 
 
@@ -147,6 +154,55 @@ void MainWindow::startLevel3()
     this->gameStarted = true;
     this->ui->GameFiels->show();
     emit startLevel(3);
+}
+void MainWindow::startLevel4()
+{
+    cForm->hide();
+    this->gameStarted = true;
+    this->ui->GameFiels->show();
+    emit startLevel(4);
+}
+void MainWindow::startLevel5()
+{
+    cForm->hide();
+    this->gameStarted = true;
+    this->ui->GameFiels->show();
+    emit startLevel(5);
+}
+void MainWindow::startLevel6()
+{
+    cForm->hide();
+    this->gameStarted = true;
+    this->ui->GameFiels->show();
+    emit startLevel(6);
+}
+void MainWindow::startLevel7()
+{
+    cForm->hide();
+    this->gameStarted = true;
+    this->ui->GameFiels->show();
+    emit startLevel(7);
+}
+void MainWindow::startLevel8()
+{
+    cForm->hide();
+    this->gameStarted = true;
+    this->ui->GameFiels->show();
+    emit startLevel(8);
+}
+void MainWindow::startLevel9()
+{
+    cForm->hide();
+    this->gameStarted = true;
+    this->ui->GameFiels->show();
+    emit startLevel(9);
+}
+void MainWindow::startLevel10()
+{
+    cForm->hide();
+    this->gameStarted = true;
+    this->ui->GameFiels->show();
+    emit startLevel(10);
 }
 
 void MainWindow::levelFinished(int n)

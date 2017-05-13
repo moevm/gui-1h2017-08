@@ -12,6 +12,7 @@ GameWidget::GameWidget(QWidget *parent) :
     this->player = new Player(QVector2D(30,30),25);
     this->level = new Level(this->player);
     startTimer(1000/60);  // 60 fps
+    curSize = 100;
 }
 
 
@@ -138,7 +139,7 @@ void GameWidget::action()
     {
         if (level->getLevel() < level->getLastLevel() &&  level->getLevel()!=0 ){
             this->player = new Player(QVector2D(30,30),25);
-            this->level = new Level(this->player,15,15,level->getLevel()+1);
+            this->level = new Level(this->player,15,15,level->getLevel()+1, curSize );
           //  level->draw(this);
             repaint();
         } else {
@@ -156,7 +157,8 @@ void GameWidget::action()
 
 void GameWidget::resizeEvent(QResizeEvent * event){
     QSize s = event->size();
-    double px =  sqrt((s.width()*s.height())/60.0);
+    float px =  sqrt((s.width()*s.height())/60.0);
+    curSize = px;
     level->resizeAll(px);
    // level->draw(this);
     //repaint();

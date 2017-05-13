@@ -66,8 +66,8 @@ void Map::addTeleportMonster(TeleporterMonster *m)
 }
 
 void Map::genMonsters(int blockSize){
-    if (cells.size()<50 || !monsters.empty()) return;
-    int amount = cells.size()/50;
+    if (cells.size()<100 || !monsters.empty()) return;
+    int amount = cells.size()/100;
     //if(amount > 40) amount =40;
 
     for (int i = 0; i<amount; i++){

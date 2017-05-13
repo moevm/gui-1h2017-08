@@ -49,6 +49,13 @@ public slots:
     void startLevel1();
     void startLevel2();
     void startLevel3();
+    void startLevel4();
+    void startLevel5();
+    void startLevel6();
+    void startLevel7();
+    void startLevel8();
+    void startLevel9();
+    void startLevel10();
     void levelFinished(int);
 };
 

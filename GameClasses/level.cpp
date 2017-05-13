@@ -23,10 +23,31 @@ void Level::setSizes(){
 
     mapSizes[2][0] = 59;
     mapSizes[2][1] = 73;
+
+    mapSizes[3][0] = 77;
+    mapSizes[3][1] = 77;
+
+    mapSizes[4][0] = 80;
+    mapSizes[4][1] = 95;
+
+    mapSizes[5][0] = 99;
+    mapSizes[5][1] = 99;
+
+    mapSizes[6][0] = 111;
+    mapSizes[6][1] = 87;
+
+    mapSizes[7][0] = 131;
+    mapSizes[7][1] = 61;
+
+    mapSizes[8][0] = 151;
+    mapSizes[8][1] = 127;
+
+    mapSizes[9][0] = 189;
+    mapSizes[9][1] = 201;
 }
 
 int  Level::getLastLevel(){
-    return 3;
+    return 10;
 }
 
 Level::Level(Player *pl, int mazeWidth, int mazeHeight, int stage, int blockSize)

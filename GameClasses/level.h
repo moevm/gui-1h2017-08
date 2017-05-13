@@ -15,7 +15,7 @@ class Level
     int h, w;
     float block;
     int curLevel;
-    int mapSizes[3][2];
+    int mapSizes[10][2];
 
     void setSizes();
 public:
