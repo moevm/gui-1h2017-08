@@ -5,6 +5,8 @@
 using std::cout;
 
 
+
+
 Player::Player(QVector2D position, float r):
     MovingObject(position,r)
 {
@@ -51,59 +53,17 @@ void Player::draw(GameWidget *obg, QPainter *p)
                   "x: " + QString().setNum((direction).x()) + '\n' +
                   "y: " + QString().setNum((direction).y()) + '\n' +
                   "angle: " + QString().setNum(angle));
-    #endif
+#endif
 }
 
-
-/*
 void Player::action()
 {
+    deafen.action();
     if(this->speed < this->maxSpeed && this->direction!=QVector2D(0,0))
         this->speed=this->speed+this->speed*0.05;
-    this->position = this->position + this->direction+this->force;
+    //if(deafen.isFinished())
+        this->position = this->position + this->direction+this->force + this->getPushForce();
+    /*else
+        this->position = this->position + this->getPushForce();*/
+    this->setPushForce(this->getPushForce()*0.9);
 }
-
-void Player::moveTo(QVector2D toPoint)
-{
-    angle = findAngle(look, (toPoint-getCentr()));
-
-    this->direction = (toPoint - (this->position) ).normalized()* speed;
-
-}
-
-void Player::stop()
-{
-    this->speed=5;
-    this->direction = QVector2D(0,0);
-}
-
-*/
-
-
-
-
-
-
-/*QVector2D Player::getDirection() const
-{
-    return direction;
-}
-
-void Player::setDirection(const QVector2D &value)
-{
-    direction = value.normalized()* speed;
-}
-
-QVector2D Player::getForce() const
-{
-    return force;
-}
-
-void Player::setForce(const QVector2D &value)
-{
-    force = value;
-}*/
-
-
-
-

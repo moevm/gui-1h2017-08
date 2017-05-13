@@ -123,6 +123,11 @@ void Level::resizeAll(int blockSize){
          m->setPosition(QVector2D(pos.x()*blockSize/block,pos.y()*blockSize/block));
          m->setR(blockSize/4.0);
     }
+    foreach (Monster *m, curr_map->push_monsters) {
+         QVector2D pos = m->getPosition();
+         m->setPosition(QVector2D(pos.x()*blockSize/block,pos.y()*blockSize/block));
+         m->setR(blockSize/4.0);
+    }
     block = blockSize;
 }
 
@@ -186,6 +191,20 @@ void Level::action()
         if(this->wayToPlayer((curr_m->getCentr())).length() < vision*0.6)
         {
             curr_m->castSpellTelleport(pl, this->curr_map);
+        }
+    }
+    foreach (PushMonster *curr_m, this->curr_map->push_monsters) {
+        curr_m->action();
+        if(this->wayToPlayer((curr_m->getCentr())).length() < vision &&
+           this->wayToPlayer((curr_m->getCentr())).length() > vision*0.2  )
+        {
+            //curr_m->setDirection(-this->wayToPlayer(curr_m->getCentr()));
+            curr_m->moveTo(this->pl->getCentr());
+        }
+        else curr_m->stop();
+        if(this->wayToPlayer((curr_m->getCentr())).length() < vision*0.2)
+        {
+            curr_m->push(pl);
         }
     }
     foreach (Teleport *curr_t, this->curr_map->teleports) {
@@ -257,68 +276,7 @@ QVector2D Level::checkroundCollisionWithVectorOfWall(RoundCollision * circle, Ga
 void Level::checkCollision(GameWidget *paint)
 {
     QVector2D save = QVector2D(0,0);
-    /*foreach (Wall *curr_wall, curr_map->walls) {
-        save +=collisionCircleAndRectangle(curr_wall, this->pl, paint);
-    }*/
-
     save += checkroundCollisionWithVectorOfWall(pl, paint);
-    /*float w = curr_map->walls.at(0).at(0)->getWidth();
-    float h = curr_map->walls.at(0).at(0)->getHeight();
-    float from_y = 0;
-    float to_y = 0;
-    if(curr_map->walls.size() < 10)
-    {
-        from_y = this->pl->getPosition().y() / h -1;
-        to_y = from_y+2;
-    }else
-    {
-        from_y = 0;
-        to_y = curr_map->walls.size()-1;
-    }
-
-    for (int i=from_y; i<=to_y; i++){
-        float from_x = 0;
-        float to_x = curr_map->walls.at(i).size()-1;
-        while(true)
-        {
-            if(to_x - from_x < 4)
-                break;
-            float midle_elem = (from_x + to_x)/2;
-            if(curr_map->walls.at(i).at(midle_elem)->getPosition().x() < this->pl->getPosition().x())
-            {
-                from_x = midle_elem;
-            }
-            else
-            {
-                to_x = midle_elem;
-            }
-        }
-        for (int j=from_x; j<=to_x; j++){
-             save +=collisionCircleAndRectangle(curr_map->walls.at(i).at(j), this->pl, paint);
-        }
-    }*/
-    /*foreach (QVector <Wall*> curr_walls, curr_map->walls)
-    {
-        float save_distance =1000000;
-        float curr_distance =1000000;
-        for( int i=0; i< curr_walls.size(); i++)
-        {
-
-        }
-        foreach (Wall *curr_wall, curr_walls)
-        {
-            save +=collisionCircleAndRectangle(curr_wall, this->pl, paint);
-            curr_distance = (this->pl->getPosition() - curr_wall->getPosition()).length();
-            if(curr_distance > save_distance)
-            {
-                break;
-            }
-            else
-            {
-                save_distance = curr_distance;
-            }
-        }
-    }*/
     Wall * rect =  this->curr_map->cells[this->curr_map->cells.length()-1];
     if(collisionPointAndRectangle(new QVector2D(this->pl->getCentr()),//&*(this->curr_map->cells.end()),
                                   rect,
@@ -350,6 +308,43 @@ void Level::checkCollision(GameWidget *paint)
             }
         }*/
         foreach (Monster *curr_m_next, this->getCurr_map()->monsters) {
+            if(curr_m_next != curr_m)
+            {
+                if(collisionCircleAndCircle(curr_m, curr_m_next, paint))
+                {
+                    monsterForse +=(curr_m->getCentr() - curr_m_next->getCentr()).normalized()*curr_m->getSpeed();
+                }
+            }
+        }
+        foreach (Monster *curr_m_next, this->getCurr_map()->push_monsters) {
+            if(curr_m_next != curr_m)
+            {
+                if(collisionCircleAndCircle(curr_m, curr_m_next, paint))
+                {
+                    monsterForse +=(curr_m->getCentr() - curr_m_next->getCentr()).normalized()*curr_m->getSpeed();
+                }
+            }
+        }
+        curr_m->setForce(monsterForse);
+    }
+    foreach (Monster *curr_m, this->getCurr_map()->push_monsters) {
+        QVector2D monsterForse = QVector2D(0,0);
+        if(collisionCircleAndCircle(curr_m, this->pl, paint))
+        {
+            save +=(this->pl->getCentr() - curr_m->getCentr()).normalized()*this->pl->getSpeed();
+            monsterForse +=(-this->pl->getCentr() + curr_m->getCentr()).normalized()*curr_m->getSpeed();
+        }
+        monsterForse += checkroundCollisionWithVectorOfWall(curr_m, paint);
+        foreach (Monster *curr_m_next, this->getCurr_map()->monsters) {
+            if(curr_m_next != curr_m)
+            {
+                if(collisionCircleAndCircle(curr_m, curr_m_next, paint))
+                {
+                    monsterForse +=(curr_m->getCentr() - curr_m_next->getCentr()).normalized()*curr_m->getSpeed();
+                }
+            }
+        }
+        foreach (Monster *curr_m_next, this->getCurr_map()->push_monsters) {
             if(curr_m_next != curr_m)
             {
                 if(collisionCircleAndCircle(curr_m, curr_m_next, paint))

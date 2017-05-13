@@ -3,9 +3,10 @@
 #include <iostream>
 
 using namespace std;
+
 Map::Map()
 {
-
+    
 }
 
 /*void Map::addWall(Wall w)
@@ -48,9 +49,13 @@ void Map::draw(GameWidget *obg, QPainter *p)
         //cout << "Draw: " << curr_m->getPosition().x() << ", " << curr_m->getPosition().y() << endl;
         curr_m->draw(obg, p, obg->getTranslation());
     }
-    /*foreach (Wall *curr_wall, this->walls) {
-        curr_wall->draw(obg, p);
-    }*/
+    foreach (Monster *curr_m, this->push_monsters) {
+        if(outsideWindow(curr_m, obg))
+        {
+            continue;
+        }
+        curr_m->draw(obg, p, obg->getTranslation());
+    }
     foreach (QVector <Wall*> curr_walls, this->walls)
     {
         foreach (Wall *curr_wall, curr_walls)
@@ -69,19 +74,30 @@ void Map::genMonsters(int blockSize){
     if (cells.size()<100 || !monsters.empty()) return;
     int amount = cells.size()/100;
     //if(amount > 40) amount =40;
+    amount =20;
 
     for (int i = 0; i<amount; i++){
         int targetCell =  rand() % (cells.length()-1);
         TeleporterMonster *t = new TeleporterMonster(cells[targetCell]->getPosition(), blockSize/4.0);
         addTeleportMonster(t);
-        //
-        //Teleport teleport(cells[targetCell]->getPosition(), blockSize/4.0);
-        //addTeleport(teleport);
     }
+    for (int i = 0; i<amount; i++){
+        int targetCell =  rand() % (cells.length()-1);
+        PushMonster *p = new PushMonster(cells[targetCell]->getPosition(), blockSize/4.0);
+        addPushMonster(p);
+    }
+}
+
+void Map::addPushMonster(PushMonster *m)
+{
+    push_monsters.push_back(m);
 }
 
 Map::~Map(){
     foreach (TeleporterMonster* m, this->monsters) {
+        delete m;
+    }
+    foreach (PushMonster* m, this->push_monsters) {
         delete m;
     }
 }
