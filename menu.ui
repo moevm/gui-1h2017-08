@@ -67,6 +67,13 @@
            </widget>
           </item>
           <item>
+           <widget class="QPushButton" name="continueGame">
+            <property name="text">
+             <string>Продолжить игру</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="gameWithSetting">
             <property name="text">
              <string>Своя игра</string>

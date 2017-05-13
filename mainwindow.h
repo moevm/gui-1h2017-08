@@ -42,6 +42,7 @@ signals:
     void startLevel(int);
 public slots:
     void startCampaign();
+    void continueCampaign();
     void startGameWithSettings();
     void openMenu();
     void openLevelSelector();

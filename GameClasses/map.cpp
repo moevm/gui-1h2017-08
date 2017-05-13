@@ -74,7 +74,6 @@ void Map::genMonsters(int blockSize){
     if (cells.size()<100 || !monsters.empty()) return;
     int amount = cells.size()/100;
     //if(amount > 40) amount =40;
-    amount =20;
 
     for (int i = 0; i<amount; i++){
         int targetCell =  rand() % (cells.length()-1);

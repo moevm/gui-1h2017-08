@@ -28,9 +28,11 @@ void MainWindow::initParameters()
 {
     menuForm = new MenuForm(ui->centralWidget);
     menuForm->move(this->size().width()/2 - menuForm->size().width()/2, this->size().height()/2 - menuForm->size().height()/2 );
+    menuForm->ui->continueGame->hide();
     QObject::connect(menuForm->ui->exit, SIGNAL(pressed()), this, SLOT(close()));
     QObject::connect(menuForm->ui->campaign, SIGNAL(pressed()), this, SLOT(openLevelSelector()));
     QObject::connect(menuForm->ui->gameWithSetting, SIGNAL(pressed()), this, SLOT(startGameWithSettings()));
+    QObject::connect(menuForm->ui->continueGame, SIGNAL(pressed()), this, SLOT(continueCampaign()));
 
     cForm = new CampaignForm(ui->centralWidget);
     cForm->move(this->size().width()/2 - cForm->size().width()/2, this->size().height()/2 - cForm->size().height()/2 );
@@ -59,18 +61,16 @@ void MainWindow::initParameters()
     generateForm->hide();
 
     ui->GameFiels->hide();
+
     //cForm->hide();
 
 }
 
 void MainWindow::resizeEvent(QResizeEvent *resize)
 {
-    //if(cForm->isVisible())
-        cForm->move(this->size().width()/2 - cForm->size().width()/2, this->size().height()/2 - cForm->size().height()/2 );
-    //if(menuForm->isVisible())
-        menuForm->move(this->size().width()/2 - menuForm->size().width()/2, this->size().height()/2 - menuForm->size().height()/2 );
-    //if(generateForm->isVisible())
-        generateForm->move(this->size().width()/2 - generateForm->size().width()/2, this->size().height()/2 - generateForm->size().height()/2 );
+    cForm->move(this->size().width()/2 - cForm->size().width()/2, this->size().height()/2 - cForm->size().height()/2 );
+    menuForm->move(this->size().width()/2 - menuForm->size().width()/2, this->size().height()/2 - menuForm->size().height()/2 );
+    generateForm->move(this->size().width()/2 - generateForm->size().width()/2, this->size().height()/2 - generateForm->size().height()/2 );
 }
 
 
@@ -88,14 +88,12 @@ void MainWindow::keyPressEvent(QKeyEvent *ev)
     {
         if(this->ui->GameFiels->isVisible())
         {
+            this->menuForm->ui->continueGame->show();
             emit openMenu();
         }
         else if (this->gameStarted)
         {
-            this->menuForm->hide();
-            cForm->hide();
-            generateForm->hide();
-            this->ui->GameFiels->continueCampaign();
+            this->continueCampaign();
         }
     }
 }
@@ -104,6 +102,14 @@ void MainWindow::startCampaign()
 {
     this->gameStarted = true;
     emit this->ui->GameFiels->startCampaign(1);
+}
+
+void MainWindow::continueCampaign()
+{
+    this->menuForm->hide();
+    cForm->hide();
+    generateForm->hide();
+    this->ui->GameFiels->continueCampaign();
 }
 
 void MainWindow::startGameWithSettings()

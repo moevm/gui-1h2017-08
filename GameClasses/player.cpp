@@ -65,5 +65,5 @@ void Player::action()
         this->position = this->position + this->direction+this->force + this->getPushForce();
     /*else
         this->position = this->position + this->getPushForce();*/
-    this->setPushForce(this->getPushForce()*0.9);
+    this->setPushForce(this->getPushForce()*0.94);
 }
