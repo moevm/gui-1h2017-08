@@ -4,13 +4,12 @@
 
 #include "monster.h"
 #include "movingobject.h"
-#include "animationclass.h"
 #include "map.h"
 class Map;
 class Player;
 
 
-class PushMonster : public Monster, public AnimationClass
+class PushMonster : public Monster
 {
     int push_distance;
 public:

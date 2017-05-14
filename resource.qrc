@@ -5,6 +5,7 @@
         <file>img/player.png</file>
         <file>img/cell01.png</file>
         <file>img/exit.png</file>
+        <file>img/baran.png</file>
     </qresource>
     <qresource prefix="/img/teleportMonsterSprites">
         <file>t01.png</file>

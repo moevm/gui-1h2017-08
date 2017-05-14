@@ -17,6 +17,12 @@ void Timer::start()
     curr_time=max_time;
 }
 
+void Timer::start(int max_time)
+{
+    this->max_time = max_time;
+    curr_time=this->max_time;
+}
+
 bool Timer::isFinished()
 {
     return curr_time <= 0;

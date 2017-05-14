@@ -12,9 +12,9 @@ void PushMonster::action()
 }
 
 PushMonster::PushMonster(QVector2D position, float r):
-    Monster(position, r, new QString(":/img/teleportMonsterSprites/t01.png")),
-    AnimationClass(QString(":/img/teleportMonsterSprites/t0"), 7,5,false)
+    Monster(position, r, new QString(":/img/img/baran.png"))
 {
+   // this->path =new QString(":/img/img/baran.png");
     this->setMaxSpeed(7);
     this->deafen.setMax_time(100);
 }
@@ -48,7 +48,7 @@ void PushMonster::draw(QWidget *obg, QPainter *p,QVector2D tr)
     pain->setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap));
     pain->setBrush(QBrush(Qt::green, Qt::SolidPattern));
 
-    pain->drawEllipse(QRectF(this->position.x() + tr.x(), this->position.y() + tr.y(), this->R*2,  this->R*2));
+   // pain->drawEllipse(QRectF(this->position.x() + tr.x(), this->position.y() + tr.y(), this->R*2,  this->R*2));
 
     float x = this->position.x() + tr.x();
     float y =  this->position.y() + tr.y();
@@ -56,12 +56,12 @@ void PushMonster::draw(QWidget *obg, QPainter *p,QVector2D tr)
 
 
     //QPixmap pic = QPixmap (*this->path);
-    QPixmap pic = QPixmap(this->getCurrFrame());
+    QPixmap pic = QPixmap(*this->path);
 
           pain->translate(x+this->R , y+this->R );
-          pain->rotate(angle-45); // градус
+          pain->rotate(angle); // градус
           pain->drawPixmap(QRect(QPoint(0-R,0-R),QSize(d, d)),pic);
-          pain->rotate(-angle+45);
+          pain->rotate(-angle);
           pain->translate(-(x+this->R) , -(y+this->R) );
 
       //  pain->end();

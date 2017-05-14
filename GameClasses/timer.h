@@ -9,6 +9,7 @@ class Timer
 public:
     Timer(unsigned int max_time=10);
     void start();
+    void start(int max_time);
     bool isFinished();
     void action();
 
